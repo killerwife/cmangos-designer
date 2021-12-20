@@ -1,0 +1,38 @@
+﻿<Window
+    x:Class="cmangos_designer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:cmangos_designer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel>
+        <StackPanel>
+            <MenuBar x:Name="topMenu">
+                <MenuBar.Items>
+                    <MenuBarItem x:Name="menuBarFile" Title="File">
+                        <MenuBarItem.Items>
+                            <MenuFlyoutItem Text="Exit" Click="buttonExit_Click" />
+                        </MenuBarItem.Items>
+                    </MenuBarItem>
+                    <MenuBarItem x:Name="menuBarTools" Title="Tools">
+                        <MenuBarItem.Items>
+                            <MenuFlyoutItem Text="Waypoints" Click="buttonWaypoints_Click"/>
+                        </MenuBarItem.Items>
+                    </MenuBarItem>
+                    <MenuBarItem x:Name="menuBarHelp" Title="Help">
+                        <MenuBarItem.Items>
+                            <MenuFlyoutItem Text="About" Click="buttonAbout_Click"/>
+                        </MenuBarItem.Items>
+                    </MenuBarItem>
+                </MenuBar.Items>
+
+            </MenuBar>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Frame x:Name="contentFrame"/>
+
+            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

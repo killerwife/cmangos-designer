@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "cmangos-designer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "cmangos-designer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
