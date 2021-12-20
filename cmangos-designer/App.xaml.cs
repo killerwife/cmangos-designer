@@ -1,4 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Xaml;
+using Host = Microsoft.Extensions.Hosting.IHostBuilder;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -32,6 +36,12 @@ namespace cmangos_designer
         /// </summary>
         public App()
         {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Package.Current.InstalledLocation.Path);
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            m_configurationRoot = builder.Build();
+
             this.InitializeComponent();
         }
 
@@ -44,8 +54,12 @@ namespace cmangos_designer
         {
             m_window = new MainWindow();
             m_window.Activate();
+
+            var mysql = new Repository.Mysql(m_configurationRoot.GetSection("DbConfig:TbcConfig").Get<Config.DatabaseConfig>());
+
         }
 
         private Window m_window;
+        private readonly IConfigurationRoot m_configurationRoot;
     }
 }

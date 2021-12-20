@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using cmangos_designer.Designers;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -28,10 +29,10 @@ namespace cmangos_designer
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
-        }
+        //private void myButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    myButton.Content = "Clicked";
+        //}
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
@@ -41,6 +42,11 @@ namespace cmangos_designer
         private void buttonWaypoints_Click(object sender, RoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(About));
+        }
+
+        private void buttonDbscripts_Click(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(DbscriptsDesigner));
         }
 
         private void buttonAbout_Click(object sender, RoutedEventArgs e)

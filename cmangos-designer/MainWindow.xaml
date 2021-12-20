@@ -18,6 +18,7 @@
                     <MenuBarItem x:Name="menuBarTools" Title="Tools">
                         <MenuBarItem.Items>
                             <MenuFlyoutItem Text="Waypoints" Click="buttonWaypoints_Click"/>
+                            <MenuFlyoutItem Text="Dbscripts" Click="buttonDbscripts_Click"/>
                         </MenuBarItem.Items>
                     </MenuBarItem>
                     <MenuBarItem x:Name="menuBarHelp" Title="Help">
@@ -32,7 +33,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Frame x:Name="contentFrame"/>
 
-            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+            <!--<Button x:Name="myButton" Click="myButton_Click">Click Me</Button>-->
         </StackPanel>
     </StackPanel>
 </Window>

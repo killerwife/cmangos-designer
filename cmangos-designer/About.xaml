@@ -10,7 +10,7 @@
 
     <Grid>
         <TextBox>
-            <TextBox.Text>Bla</TextBox.Text>
+            <TextBox.Text>Created by cMaNGOS 2021.</TextBox.Text>
         </TextBox>
     </Grid>
 </Page>

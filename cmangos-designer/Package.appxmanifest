@@ -34,10 +34,10 @@
         DisplayName="cmangos-designer"
         Description="cmangos-designer"
         BackgroundColor="transparent"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        Square150x150Logo="Assets\realmd.png"
+        Square44x44Logo="Assets\realmd.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\realmd.png" />
+        <uap:SplashScreen Image="Assets\realmd.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

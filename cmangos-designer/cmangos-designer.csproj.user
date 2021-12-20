@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ActiveDebugProfile>cmangos-designer (Unpackaged)</ActiveDebugProfile>
+  </PropertyGroup>
   <ItemGroup>
     <Page Update="About.xaml">
       <SubType>Designer</SubType>
@@ -8,6 +13,9 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="Designers\DbscriptsDesigner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </None>

@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 0,
+    "Name": "Talk",
+    "Description": "Source displays a text at target.",
+    "Datalong": "Dbscript Random Template Id",
+    "DatalongTooltip": "Entry in dbscript_random_templates with type 0",
+    "Datalong2": "",
+    "DatalongTooltip2": "",
+    "Datalong3": "",
+    "DatalongTooltip3": "",
+    "DataflagAdditional": "",
+    "Dataint": "",
+    "DataintTooltip": "",
+    "Dataint2": "",
+    "DataintTooltip2": "",
+    "Dataint3": "",
+    "DataintTooltip3": "",
+    "Dataint4": "",
+    "DataintTooltip4": ""
+  }
+]
