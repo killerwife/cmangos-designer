@@ -10,13 +10,15 @@
     "Datalong3": "",
     "DatalongTooltip3": "",
     "DataflagAdditional": "",
-    "Dataint": "",
-    "DataintTooltip": "",
-    "Dataint2": "",
-    "DataintTooltip2": "",
-    "Dataint3": "",
-    "DataintTooltip3": "",
-    "Dataint4": "",
-    "DataintTooltip4": ""
+    "Dataint": "Text Id 1",
+    "DataintTooltip": "Text Broadcast Text Id 1",
+    "Dataint2": "Text Id 2",
+    "DataintTooltip2": "Optional Broadcast Text Text Id 2",
+    "Dataint3": "Text Id 3",
+    "DataintTooltip3": "Optional Broadcast Text Text Id 3",
+    "Dataint4": "Text Id 4",
+    "DataintTooltip4": "Optional Broadcast Text Text Id 4",
+    "CommandAdditional": "",
+    "CommandAdditionalTooltip": ""
   }
 ]
