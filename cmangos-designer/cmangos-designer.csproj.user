@@ -4,7 +4,7 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
-    <ActiveDebugProfile>cmangos-designer (Package)</ActiveDebugProfile>
+    <ActiveDebugProfile>cmangos-designer (Unpackaged)</ActiveDebugProfile>
   </PropertyGroup>
   <ItemGroup>
     <Page Update="About.xaml">

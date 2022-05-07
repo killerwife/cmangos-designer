@@ -37,7 +37,7 @@ namespace cmangos_designer
         public App()
         {
             var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Package.Current.InstalledLocation.Path);
+            // builder.SetBasePath(Package.Current.InstalledLocation.Path);
             builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             m_configurationRoot = builder.Build();

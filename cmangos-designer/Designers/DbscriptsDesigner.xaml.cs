@@ -142,7 +142,7 @@ namespace cmangos_designer.Designers
         public DbscriptsDesigner()
         {
             this.InitializeComponent();
-            string pathToFile = Package.Current.InstalledLocation.Path + "\\" + "dbscriptcommands.json";
+            string pathToFile = Directory.GetCurrentDirectory() + "\\" + "dbscriptcommands.json";
             string jsonString = File.ReadAllText(pathToFile);
             Commands = JsonSerializer.Deserialize<List<DbscriptCommands>>(jsonString).OrderBy(p => p.Id).ToList();
             foreach (DbscriptCommands command in Commands)
