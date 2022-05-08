@@ -1187,28 +1187,4 @@
     "CommandAdditional": "",
     "CommandAdditionalTooltip": ""
   }
-  /*
-  {
-    "Id": 99,
-    "Name": "Dummy for copypaste",
-    "Description": "",
-    "Datalong": "",
-    "DatalongTooltip": "",
-    "Datalong2": "",
-    "DatalongTooltip2": "",
-    "Datalong3": "",
-    "DatalongTooltip3": "",
-    "DataflagAdditional": "",
-    "Dataint": "",
-    "DataintTooltip": "",
-    "Dataint2": "",
-    "DataintTooltip2": "",
-    "Dataint3": "",
-    "DataintTooltip3": "",
-    "Dataint4": "",
-    "DataintTooltip4": "",
-    "CommandAdditional": "",
-    "CommandAdditionalTooltip": ""
-  }
-*/
 ]
