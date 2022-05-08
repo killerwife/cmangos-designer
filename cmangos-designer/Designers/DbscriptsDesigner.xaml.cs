@@ -1,4 +1,5 @@
-﻿using Data.Definitions;
+﻿using Data;
+using Data.Definitions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -8,12 +9,14 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.DataTransfer;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +29,7 @@ namespace cmangos_designer.Designers
     public sealed partial class DbscriptsDesigner : Page, INotifyPropertyChanged
     {
         private List<(string, int)> CommandsBinding { get; set; } = new List<(string, int)>();
+        private List<string> TablesBinding { get; set; } = new List<string>();
         private List<DbscriptCommands> Commands { get; set; } = new List<DbscriptCommands>();
 
         // tooltips
@@ -161,6 +165,12 @@ namespace cmangos_designer.Designers
             }
         }
 
+        public string SelectedTable { get; set; }
+        public int SelectedCommand { get; set; } = -1;
+        private Dbscripts? SelectedScript { get; set; } = null;
+
+        public ObservableCollection<Dbscripts> Dbscripts { get; set; } = new ObservableCollection<Dbscripts>();
+
         public DbscriptsDesigner()
         {
             this.InitializeComponent();
@@ -171,6 +181,16 @@ namespace cmangos_designer.Designers
             {
                 CommandsBinding.Add((command.Name, command.Id));
             }
+            TablesBinding.Add("dbscripts_on_creature_death");
+            TablesBinding.Add("dbscripts_on_creature_movement");
+            TablesBinding.Add("dbscripts_on_event");
+            TablesBinding.Add("dbscripts_on_gossip");
+            TablesBinding.Add("dbscripts_on_go_template_use");
+            TablesBinding.Add("dbscripts_on_go_use");
+            TablesBinding.Add("dbscripts_on_quest_end");
+            TablesBinding.Add("dbscripts_on_quest_start");
+            TablesBinding.Add("dbscripts_on_relay");
+            TablesBinding.Add("dbscripts_on_spell");
             UpdateSourceTarget();
         }
 
@@ -183,6 +203,42 @@ namespace cmangos_designer.Designers
 
         private void CommandComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count == 0) // deselected
+            {
+                textBlockDatalong1.Text = "Datalong";
+                Datalong1Tooltip = "";
+
+                textBlockDatalong2.Text = "Datalong2";
+                Datalong2Tooltip = "";
+
+                textBlockDatalong3.Text = "Datalong3";
+                Datalong3Tooltip = "";
+
+                textBlockDataint1.Text = "Dataint";
+                Dataint1Tooltip = "";
+
+                textBlockDataint2.Text = "Dataint2";
+                Dataint2Tooltip = "";
+
+                textBlockDataint3.Text = "Dataint3";
+                Dataint3Tooltip = "";
+
+                textBlockDataint4.Text = "Dataint4";
+                Dataint4Tooltip = "";
+
+                textBlockDatafloat1.Text = "Datafloat";
+                Datafloat1Tooltip = "";
+
+                textBlockSpeed.Text = "Speed";
+                SpeedTooltip = "";
+
+                checkBoxBuddyCommandAdditional.Content = "Command Additional";
+                CommandAdditionalTooltip = "";
+
+                SelectedCommand = -1;
+                return;
+            }
+
             var commandData = ((string,int))e.AddedItems[0];
 
             var dbscriptCommand = Commands[commandData.Item2];
@@ -216,6 +272,8 @@ namespace cmangos_designer.Designers
 
             checkBoxBuddyCommandAdditional.Content = dbscriptCommand.CommandAdditional;
             CommandAdditionalTooltip = dbscriptCommand.CommandAdditionalTooltip;
+
+            SelectedCommand = commandData.Item2;
         }
 
         private int computeDbscriptFlagsForTargeting()
@@ -254,6 +312,168 @@ namespace cmangos_designer.Designers
         private void checkBoxBuddies_Checked(object sender, RoutedEventArgs e)
         {
             UpdateSourceTarget();
+        }
+
+        public void AddDbscript(Dbscripts dbscript)
+        {
+            Dbscripts.Add(dbscript);
+            OnPropertyChanged("Dbscripts");
+        }
+
+        private void TableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedTable = (string)e.AddedItems[0];
+        }
+
+        private void DbscriptDatagrid_SelectedItem(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedScript = (Dbscripts)e.AddedItems[0];
+            textBoxId.Text = SelectedScript.Id.ToString();
+            textBoxDelay.Text = SelectedScript.Delay.ToString();
+            textBoxPriority.Text = SelectedScript.Priority.ToString();
+            ComboCommands.SelectedIndex = SelectedScript.Command;
+            textBoxDatalong1.Text = SelectedScript.Datalong.ToString();
+            textBoxDatalong2.Text = SelectedScript.Datalong2.ToString();
+            textBoxDatalong3.Text = SelectedScript.Datalong3.ToString();
+            textBoxBuddyEntry.Text = SelectedScript.Buddy_entry.ToString();
+            textBoxSearchRadius.Text = SelectedScript.Search_radius.ToString();
+            checkBoxBuddyAsTarget.IsChecked = (SelectedScript.Data_Flags & 0x1) == 1;
+            checkBoxBuddyReverseDirection.IsChecked = (SelectedScript.Data_Flags & 0x2) == 1;
+            checkBoxBuddySourceTargetsSelf.IsChecked = (SelectedScript.Data_Flags & 0x4) == 1;
+            checkBoxBuddyCommandAdditional.IsChecked = (SelectedScript.Data_Flags & 0x8) == 1;
+            checkBoxBuddyBuddyByGuid.IsChecked = (SelectedScript.Data_Flags & 0x10) == 1;
+            checkBoxBuddyIsPet.IsChecked = (SelectedScript.Data_Flags & 0x20) == 1;
+            checkBoxBuddyIsDespawned.IsChecked = (SelectedScript.Data_Flags & 0x40) == 1;
+            checkBoxBuddyByPool.IsChecked = (SelectedScript.Data_Flags & 0x80) == 1;
+            checkBoxBuddyBySpawnGroup.IsChecked = (SelectedScript.Data_Flags & 0x100) == 1;
+            checkBoxBuddyAllEligible.IsChecked = (SelectedScript.Data_Flags & 0x200) == 1;
+            checkBoxBuddyByGO.IsChecked = (SelectedScript.Data_Flags & 0x400) == 1;
+            textBoxDataint1.Text = SelectedScript.Dataint.ToString();
+            textBoxDataint2.Text = SelectedScript.Dataint2.ToString();
+            textBoxDataint3.Text = SelectedScript.Dataint3.ToString();
+            textBoxDataint4.Text = SelectedScript.Dataint4.ToString();
+            textBoxDatafloat1.Text = SelectedScript.Datafloat.ToString();
+            textBoxX.Text = SelectedScript.X.ToString();
+            textBoxY.Text = SelectedScript.Y.ToString();
+            textBoxZ.Text = SelectedScript.Z.ToString();
+            textBoxO.Text = SelectedScript.O.ToString();
+            textBoxSpeed.Text = SelectedScript.Speed.ToString();
+            textBoxConditionId.Text = SelectedScript.Condition_id.ToString();
+            textBoxComments.Text = SelectedScript.Comments.ToString();
+        }
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var dbscript = new Dbscripts();
+            FillDbscript(dbscript);
+            Dbscripts.Add(dbscript);
+            OnPropertyChanged("Dbscripts");
+        }
+
+        private void FillDbscript(Dbscripts dbscript)
+        {
+            dbscript.Id = ushort.TryParse(textBoxId.Text, out ushort s) ? s : (ushort)0;
+            dbscript.Delay = uint.TryParse(textBoxDelay.Text, out uint u) ? u : (uint)0; ;
+            dbscript.Priority = uint.TryParse(textBoxPriority.Text, out u) ? u : (uint)0; ;
+            dbscript.Command = (ushort)((SelectedCommand != -1) ? SelectedCommand : 0);
+            dbscript.Datalong = uint.TryParse(textBoxDatalong1.Text, out u) ? u : (uint)0; ;
+            dbscript.Datalong2 = uint.TryParse(textBoxDatalong2.Text, out u) ? u : (uint)0; ;
+            dbscript.Datalong3 = uint.TryParse(textBoxDatalong3.Text, out u) ? u : (uint)0; ;
+            dbscript.Buddy_entry = ushort.TryParse(textBoxBuddyEntry.Text, out s) ? s : (ushort)0;
+            dbscript.Search_radius = ushort.TryParse(textBoxSearchRadius.Text, out s) ? s : (ushort)0;
+            uint flags = checkBoxBuddyAsTarget.IsChecked ?? true ? 1u : 0u;
+            flags += checkBoxBuddyReverseDirection.IsChecked ?? true ? 2u : 0u;
+            flags += checkBoxBuddySourceTargetsSelf.IsChecked ?? true ? 4u : 0u;
+            flags += checkBoxBuddyCommandAdditional.IsChecked ?? true ? 8u : 0u;
+            flags += checkBoxBuddyBuddyByGuid.IsChecked ?? true ? 16u : 0u;
+            flags += checkBoxBuddyIsPet.IsChecked ?? true ? 32u : 0u;
+            flags += checkBoxBuddyIsDespawned.IsChecked ?? true ? 64u : 0u;
+            flags += checkBoxBuddyByPool.IsChecked ?? true ? 128u : 0u;
+            flags += checkBoxBuddyBySpawnGroup.IsChecked ?? true ? 256u : 0u;
+            flags += checkBoxBuddyAllEligible.IsChecked ?? true ? 512u : 0u;
+            flags += checkBoxBuddyByGO.IsChecked ?? true ? 1024u : 0u;
+            dbscript.Data_Flags = flags;
+            dbscript.Dataint = int.TryParse(textBoxDataint1.Text, out int i) ? i : (int)0;
+            dbscript.Dataint2 = int.TryParse(textBoxDataint2.Text, out i) ? i : (int)0;
+            dbscript.Dataint3 = int.TryParse(textBoxDataint3.Text, out i) ? i : (int)0;
+            dbscript.Dataint4 = int.TryParse(textBoxDataint4.Text, out i) ? i : (int)0;
+            dbscript.Datafloat = float.TryParse(textBoxDatafloat1.Text, out float f) ? f : (float)0;
+            dbscript.X = float.TryParse(textBoxX.Text, out f) ? f : (float)0;
+            dbscript.Y = float.TryParse(textBoxY.Text, out f) ? f : (float)0;
+            dbscript.Z = float.TryParse(textBoxZ.Text, out f) ? f : (float)0;
+            dbscript.O = float.TryParse(textBoxO.Text, out f) ? f : (float)0;
+            dbscript.Speed = float.TryParse(textBoxSpeed.Text, out f) ? f : (float)0;
+            dbscript.Condition_id = ushort.TryParse(textBoxConditionId.Text, out s) ? s : (ushort)0;
+            dbscript.Comments = textBoxComments.Text;
+        }
+
+        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxId.Text = "";
+            textBoxDelay.Text = "";
+            textBoxPriority.Text = "";
+            ComboCommands.SelectedIndex = -1;
+            textBoxDatalong1.Text = "";
+            textBoxDatalong2.Text = "";
+            textBoxDatalong3.Text = "";
+            textBoxBuddyEntry.Text = "";
+            textBoxSearchRadius.Text = "";
+            checkBoxBuddyAsTarget.IsChecked = false;
+            checkBoxBuddyReverseDirection.IsChecked = false;
+            checkBoxBuddySourceTargetsSelf.IsChecked = false;
+            checkBoxBuddyCommandAdditional.IsChecked = false;
+            checkBoxBuddyBuddyByGuid.IsChecked = false;
+            checkBoxBuddyIsPet.IsChecked = false;
+            checkBoxBuddyIsDespawned.IsChecked = false;
+            checkBoxBuddyByPool.IsChecked = false;
+            checkBoxBuddyBySpawnGroup.IsChecked = false;
+            checkBoxBuddyAllEligible.IsChecked = false;
+            checkBoxBuddyByGO.IsChecked = false;
+            textBoxDataint1.Text = "";
+            textBoxDataint2.Text = "";
+            textBoxDataint3.Text = "";
+            textBoxDataint4.Text = "";
+            textBoxDatafloat1.Text = "";
+            textBoxX.Text = "";
+            textBoxY.Text = "";
+            textBoxZ.Text = "";
+            textBoxO.Text = "";
+            textBoxSpeed.Text = "";
+            textBoxConditionId.Text = "";
+            textBoxComments.Text = "";
+        }
+
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            string query = "INSERT INTO " + SelectedTable + "(id, delay, priority, command, datalong, datalong2, datalong3, buddy_entry, search_radius, data_flags, dataint, dataint2, dataint3, dataint4, datafloat, x, y, z, o, speed, condition_id, comments) VALUES\n";
+            bool first = true;
+            foreach (var dbscript in Dbscripts)
+            {
+                if (!first)
+                    query += ",\n";
+                else
+                    first = false;
+                query += "(";
+                query += dbscript.Id + "," + dbscript.Delay + "," + dbscript.Priority + "," + dbscript.Command + "," + dbscript.Datalong + "," + dbscript.Datalong2 + ",";
+                query += dbscript.Datalong3 + "," + dbscript.Buddy_entry + "," + dbscript.Search_radius + "," + dbscript.Data_Flags + "," + dbscript.Dataint + ",";
+                query += dbscript.Dataint2 + "," + dbscript.Dataint3 + "," + dbscript.Dataint4 + "," + dbscript.Datafloat + "," + dbscript.X + "," + dbscript.Y + ",";
+                query += dbscript.Z + "," + dbscript.O + "," + dbscript.Speed + "," + dbscript.Condition_id + ",'" + dbscript.Comments + "'";
+                query += ")";
+            }
+            query += ";";
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(query);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private void buttonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedScript != null)
+            {
+                FillDbscript(SelectedScript);
+                OnPropertyChanged("Dbscripts");
+            }
         }
     }
 }

@@ -16,10 +16,12 @@
         public int Dataint2 { get; set; }
         public int Dataint3 { get; set; }
         public int Dataint4 { get; set; }
+        public float Datafloat { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
         public float O { get; set; }
+        public float Speed { get; set; }
         public ushort Condition_id { get; set; }
         public string? Comments { get; set; }
     }
