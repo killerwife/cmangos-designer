@@ -27,6 +27,10 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -45,38 +49,44 @@
                             PlaceholderText="Pick a command" Width="200" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5">
 
         </ComboBox>
-        <TextBlock x:Name="textBlockDatalong1" Grid.Column="0" Grid.Row="3" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong1Tooltip, Mode=OneWay}">Datalong</TextBlock>
+        <TextBlock x:Name="textBlockDatalong1" Grid.Column="0" Grid.Row="3" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong1Tooltip, Mode=OneWay}">Datalong1</TextBlock>
         <TextBox x:Name="textBoxDatalong1" Grid.Column="1" Grid.Row="3" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockDatalong2" Grid.Column="0" Grid.Row="4" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong2Tooltip, Mode=OneWay}">Datalong</TextBlock>
+        <TextBlock x:Name="textBlockDatalong2" Grid.Column="0" Grid.Row="4" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong2Tooltip, Mode=OneWay}">Datalong2</TextBlock>
         <TextBox x:Name="textBoxDatalong2" Grid.Column="1" Grid.Row="4" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockDatalong3" Grid.Column="0" Grid.Row="5" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong3Tooltip, Mode=OneWay}">Datalong</TextBlock>
+        <TextBlock x:Name="textBlockDatalong3" Grid.Column="0" Grid.Row="5" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datalong3Tooltip, Mode=OneWay}">Datalong3</TextBlock>
         <TextBox x:Name="textBoxDatalong3" Grid.Column="1" Grid.Row="5" Width="150"></TextBox>
 
-        <TextBlock x:Name="textBlockDataint1" Grid.Column="0" Grid.Row="6" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint1Tooltip, Mode=OneWay}">Dataint</TextBlock>
+        <TextBlock x:Name="textBlockDataint1" Grid.Column="0" Grid.Row="6" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint1Tooltip, Mode=OneWay}">Dataint1</TextBlock>
         <TextBox x:Name="textBoxDataint1" Grid.Column="1" Grid.Row="6" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockDataint2" Grid.Column="0" Grid.Row="7" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint2Tooltip, Mode=OneWay}">Dataint</TextBlock>
+        <TextBlock x:Name="textBlockDataint2" Grid.Column="0" Grid.Row="7" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint2Tooltip, Mode=OneWay}">Dataint2</TextBlock>
         <TextBox x:Name="textBoxDataint2" Grid.Column="1" Grid.Row="7" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockDataint3" Grid.Column="0" Grid.Row="8" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint3Tooltip, Mode=OneWay}">Dataint</TextBlock>
+        <TextBlock x:Name="textBlockDataint3" Grid.Column="0" Grid.Row="8" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint3Tooltip, Mode=OneWay}">Dataint3</TextBlock>
         <TextBox x:Name="textBoxDataint3" Grid.Column="1" Grid.Row="8" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockDataint4" Grid.Column="0" Grid.Row="9" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint4Tooltip, Mode=OneWay}">Dataint</TextBlock>
+        <TextBlock x:Name="textBlockDataint4" Grid.Column="0" Grid.Row="9" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Dataint4Tooltip, Mode=OneWay}">Dataint4</TextBlock>
         <TextBox x:Name="textBoxDataint4" Grid.Column="1" Grid.Row="9" Width="150"></TextBox>
 
-        <TextBlock x:Name="textBlockX" Grid.Column="0" Grid.Row="10" ToolTipService.Placement="Right" ToolTipService.ToolTip="X coordinate">X</TextBlock>
-        <TextBox x:Name="textBoxX" Grid.Column="1" Grid.Row="10" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockY" Grid.Column="0" Grid.Row="11" ToolTipService.Placement="Right" ToolTipService.ToolTip="Y coordinate">Y</TextBlock>
-        <TextBox x:Name="textBoxY" Grid.Column="1" Grid.Row="11" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockZ"  Grid.Column="0" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="Z coordinate">Z</TextBlock>
-        <TextBox x:Name="textBoxZ" Grid.Column="1" Grid.Row="12" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockO" Grid.Column="0" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="Orientation">Ori</TextBlock>
-        <TextBox x:Name="textBoxO" Grid.Column="1" Grid.Row="13" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockDatafloat1" Grid.Column="0" Grid.Row="10" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datafloat1Tooltip, Mode=OneWay}">Datafloat</TextBlock>
+        <TextBox x:Name="textBoxDatafloat1" Grid.Column="1" Grid.Row="10" Width="150"></TextBox>
 
-        <TextBlock x:Name="textBlockBuddyEntry"  Grid.Column="0" Grid.Row="14" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind BuddyEntryTooltip, Mode=OneWay}">Buddy Entry</TextBlock>
-        <TextBox x:Name="textBoxBuddyEntry" Grid.Column="1" Grid.Row="14" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockSearchRadius" Grid.Column="0" Grid.Row="15" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind SearchRadiusTooltip, Mode=OneWay}">Search Radius</TextBlock>
-        <TextBox x:Name="textBoxSearchRadius" Grid.Column="1" Grid.Row="15" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockX" Grid.Column="0" Grid.Row="11" ToolTipService.Placement="Right" ToolTipService.ToolTip="X coordinate">X</TextBlock>
+        <TextBox x:Name="textBoxX" Grid.Column="1" Grid.Row="11" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockY" Grid.Column="0" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="Y coordinate">Y</TextBlock>
+        <TextBox x:Name="textBoxY" Grid.Column="1" Grid.Row="12" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockZ"  Grid.Column="0" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="Z coordinate">Z</TextBlock>
+        <TextBox x:Name="textBoxZ" Grid.Column="1" Grid.Row="13" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockO" Grid.Column="0" Grid.Row="14" ToolTipService.Placement="Right" ToolTipService.ToolTip="Orientation">Ori</TextBlock>
+        <TextBox x:Name="textBoxO" Grid.Column="1" Grid.Row="14" Width="150"></TextBox>
 
-        <TextBlock x:Name="textBlockComments" Grid.Column="0" Grid.Row="16" ToolTipService.Placement="Right">Comments</TextBlock>
-        <TextBox x:Name="textBoxComments" Grid.Column="1" Grid.Row="16" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockSpeed" Grid.Column="0" Grid.Row="15" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind SpeedTooltip, Mode=OneWay}">Speed</TextBlock>
+        <TextBox x:Name="textBoxSpeed" Grid.Column="1" Grid.Row="15" Width="150"></TextBox>
+
+        <TextBlock x:Name="textBlockBuddyEntry"  Grid.Column="0" Grid.Row="16" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind BuddyEntryTooltip, Mode=OneWay}">Buddy Entry</TextBlock>
+        <TextBox x:Name="textBoxBuddyEntry" Grid.Column="1" Grid.Row="16" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockSearchRadius" Grid.Column="0" Grid.Row="17" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind SearchRadiusTooltip, Mode=OneWay}">Search Radius</TextBlock>
+        <TextBox x:Name="textBoxSearchRadius" Grid.Column="1" Grid.Row="17" Width="150"></TextBox>
+
+        <TextBlock x:Name="textBlockComments" Grid.Column="0" Grid.Row="18" ToolTipService.Placement="Right">Comments</TextBlock>
+        <TextBox x:Name="textBoxComments" Grid.Column="1" Grid.Row="18" Width="150"></TextBox>
 
         <CheckBox x:Name="checkBoxBuddyAsTarget" Grid.Column="2" Grid.Row="4" Checked="checkBoxBuddies_Checked" Unchecked="checkBoxBuddies_Checked">Buddy as Target</CheckBox>
         <CheckBox x:Name="checkBoxBuddyReverseDirection" Grid.Column="2" Grid.Row="5" Checked="checkBoxBuddies_Checked" Unchecked="checkBoxBuddies_Checked">Reverse Direction</CheckBox>
@@ -90,7 +100,7 @@
         <CheckBox x:Name="checkBoxBuddyAllEligible" Grid.Column="2" Grid.Row="13" Checked="checkBoxBuddies_Checked" Unchecked="checkBoxBuddies_Checked">All eligible buddies</CheckBox>
         <CheckBox x:Name="checkBoxBuddyByGO" Grid.Column="2" Grid.Row="14" Checked="checkBoxBuddies_Checked" Unchecked="checkBoxBuddies_Checked">Buddy by GO</CheckBox>
 
-        <TextBlock x:Name="textBlockResultingSource" Grid.Column="2" Grid.Row="15" ToolTipService.Placement="Right">Source: </TextBlock>
-        <TextBlock x:Name="textBlockResultingTarget" Grid.Column="2" Grid.Row="16" ToolTipService.Placement="Right">Target: </TextBlock>
+        <TextBlock x:Name="textBlockResultingSource" Grid.Column="2" Grid.Row="17" ToolTipService.Placement="Right">Source: </TextBlock>
+        <TextBlock x:Name="textBlockResultingTarget" Grid.Column="2" Grid.Row="18" ToolTipService.Placement="Right">Target: </TextBlock>
     </Grid>
 </Page>

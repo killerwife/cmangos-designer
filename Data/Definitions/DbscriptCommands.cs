@@ -26,6 +26,10 @@ namespace Data.Definitions
         public string DataintTooltip3 { get; set; }
         public string Dataint4 { get; set; }
         public string DataintTooltip4 { get; set; }
+        public string Datafloat { get; set; }
+        public string DatafloatTooltip1 { get; set; }
+        public string Speed { get; set; }
+        public string SpeedTooltip { get; set; }
         public string CommandAdditional { get; set; }
         public string CommandAdditionalTooltip { get; set; }
     }

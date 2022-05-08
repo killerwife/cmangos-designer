@@ -106,6 +106,28 @@ namespace cmangos_designer.Designers
             }
         }
 
+        private string _datafloat1Tooltip;
+        public string Datafloat1Tooltip
+        {
+            get { return _datafloat1Tooltip; }
+            set
+            {
+                _datafloat1Tooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _speedTooltip;
+        public string SpeedTooltip
+        {
+            get { return _speedTooltip; }
+            set
+            {
+                _speedTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _buddyEntryTooltip;
         public string BuddyEntryTooltip
         {
@@ -185,6 +207,12 @@ namespace cmangos_designer.Designers
 
             textBlockDataint4.Text = dbscriptCommand.Dataint4;
             Dataint4Tooltip = dbscriptCommand.DataintTooltip4;
+
+            textBlockDatafloat1.Text = dbscriptCommand.Datafloat;
+            Datafloat1Tooltip = dbscriptCommand.DatafloatTooltip1;
+
+            textBlockSpeed.Text = dbscriptCommand.Speed;
+            SpeedTooltip = dbscriptCommand.SpeedTooltip;
 
             checkBoxBuddyCommandAdditional.Content = dbscriptCommand.CommandAdditional;
             CommandAdditionalTooltip = dbscriptCommand.CommandAdditionalTooltip;
