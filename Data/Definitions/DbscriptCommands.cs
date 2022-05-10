@@ -28,6 +28,14 @@ namespace Data.Definitions
         public string DataintTooltip4 { get; set; }
         public string Datafloat { get; set; }
         public string DatafloatTooltip1 { get; set; }
+        public string X { get; set; }
+        public string XTooltip { get; set; }
+        public string Y { get; set; }
+        public string YTooltip { get; set; }
+        public string Z { get; set; }
+        public string ZTooltip { get; set; }
+        public string Ori { get; set; }
+        public string OriTooltip { get; set; }
         public string Speed { get; set; }
         public string SpeedTooltip { get; set; }
         public string CommandAdditional { get; set; }

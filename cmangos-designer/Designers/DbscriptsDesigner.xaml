@@ -78,13 +78,13 @@
         <TextBlock x:Name="textBlockDatafloat1" Grid.Column="0" Grid.Row="10" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Datafloat1Tooltip, Mode=OneWay}">Datafloat</TextBlock>
         <TextBox x:Name="textBoxDatafloat1" Grid.Column="1" Grid.Row="10" Width="150"></TextBox>
 
-        <TextBlock x:Name="textBlockX" Grid.Column="0" Grid.Row="11" ToolTipService.Placement="Right" ToolTipService.ToolTip="X coordinate">X</TextBlock>
+        <TextBlock x:Name="textBlockX" Grid.Column="0" Grid.Row="11" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind XTooltip, Mode=OneWay}">X</TextBlock>
         <TextBox x:Name="textBoxX" Grid.Column="1" Grid.Row="11" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockY" Grid.Column="0" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="Y coordinate">Y</TextBlock>
+        <TextBlock x:Name="textBlockY" Grid.Column="0" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind YTooltip, Mode=OneWay}">Y</TextBlock>
         <TextBox x:Name="textBoxY" Grid.Column="1" Grid.Row="12" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockZ"  Grid.Column="0" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="Z coordinate">Z</TextBlock>
+        <TextBlock x:Name="textBlockZ"  Grid.Column="0" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind ZTooltip, Mode=OneWay}">Z</TextBlock>
         <TextBox x:Name="textBoxZ" Grid.Column="1" Grid.Row="13" Width="150"></TextBox>
-        <TextBlock x:Name="textBlockO" Grid.Column="0" Grid.Row="14" ToolTipService.Placement="Right" ToolTipService.ToolTip="Orientation">Ori</TextBlock>
+        <TextBlock x:Name="textBlockO" Grid.Column="0" Grid.Row="14" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind OriTooltip, Mode=OneWay}">Ori</TextBlock>
         <TextBox x:Name="textBoxO" Grid.Column="1" Grid.Row="14" Width="150"></TextBox>
 
         <TextBlock x:Name="textBlockSpeed" Grid.Column="0" Grid.Row="15" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind SpeedTooltip, Mode=OneWay}">Speed</TextBlock>

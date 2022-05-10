@@ -121,6 +121,50 @@ namespace cmangos_designer.Designers
             }
         }
 
+        private string _xTooltip;
+        public string XTooltip
+        {
+            get { return _xTooltip; }
+            set
+            {
+                _xTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _yTooltip;
+        public string YTooltip
+        {
+            get { return _yTooltip; }
+            set
+            {
+                _yTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _zTooltip;
+        public string ZTooltip
+        {
+            get { return _zTooltip; }
+            set
+            {
+                _zTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _oriTooltip;
+        public string OriTooltip
+        {
+            get { return _oriTooltip; }
+            set
+            {
+                _oriTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _speedTooltip;
         public string SpeedTooltip
         {
@@ -266,6 +310,18 @@ namespace cmangos_designer.Designers
 
             textBlockDatafloat1.Text = dbscriptCommand.Datafloat;
             Datafloat1Tooltip = dbscriptCommand.DatafloatTooltip1;
+
+            textBlockX.Text = dbscriptCommand.X;
+            XTooltip = dbscriptCommand.XTooltip;
+
+            textBlockY.Text = dbscriptCommand.Y;
+            YTooltip = dbscriptCommand.YTooltip;
+
+            textBlockZ.Text = dbscriptCommand.Z;
+            ZTooltip = dbscriptCommand.ZTooltip;
+
+            textBlockO.Text = dbscriptCommand.Ori;
+            OriTooltip = dbscriptCommand.OriTooltip;
 
             textBlockSpeed.Text = dbscriptCommand.Speed;
             SpeedTooltip = dbscriptCommand.SpeedTooltip;
