@@ -27,6 +27,7 @@ namespace cmangos_designer
         public MainWindow()
         {
             this.InitializeComponent();
+            contentFrame.Navigate(typeof(DbscriptsDesigner));
         }
 
         //private void myButton_Click(object sender, RoutedEventArgs e)
