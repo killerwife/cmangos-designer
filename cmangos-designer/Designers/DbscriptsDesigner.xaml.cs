@@ -531,5 +531,10 @@ namespace cmangos_designer.Designers
                 OnPropertyChanged("Dbscripts");
             }
         }
+
+        private void buttonClearAll_Click(object sender, RoutedEventArgs e)
+        {
+            Dbscripts.Clear();
+        }
     }
 }
