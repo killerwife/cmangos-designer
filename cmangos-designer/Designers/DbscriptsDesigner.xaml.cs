@@ -28,7 +28,7 @@ namespace cmangos_designer.Designers
     /// </summary>
     public sealed partial class DbscriptsDesigner : Page, INotifyPropertyChanged
     {
-        private List<(string, int)> CommandsBinding { get; set; } = new List<(string, int)>();
+        private List<string> CommandsBinding { get; set; } = new List<string>();
         private List<string> TablesBinding { get; set; } = new List<string>();
         private List<DbscriptCommands> Commands { get; set; } = new List<DbscriptCommands>();
 
@@ -215,6 +215,8 @@ namespace cmangos_designer.Designers
 
         public ObservableCollection<Dbscripts> Dbscripts { get; set; } = new ObservableCollection<Dbscripts>();
 
+        public Dictionary<string, int> CommandStringPairing = new Dictionary<string, int>();
+
         public DbscriptsDesigner()
         {
             this.InitializeComponent();
@@ -223,7 +225,9 @@ namespace cmangos_designer.Designers
             Commands = JsonSerializer.Deserialize<List<DbscriptCommands>>(jsonString).OrderBy(p => p.Id).ToList();
             foreach (DbscriptCommands command in Commands)
             {
-                CommandsBinding.Add((command.Name, command.Id));
+                var guiString = command.Id.ToString() + " - " + command.Name;
+                CommandsBinding.Add(guiString);
+                CommandStringPairing.Add(guiString, command.Id);
             }
             TablesBinding.Add("dbscripts_on_creature_death");
             TablesBinding.Add("dbscripts_on_creature_movement");
@@ -283,9 +287,10 @@ namespace cmangos_designer.Designers
                 return;
             }
 
-            var commandData = ((string,int))e.AddedItems[0];
+            var commandData = (string)e.AddedItems[0];
 
-            var dbscriptCommand = Commands[commandData.Item2];
+            var index = CommandStringPairing[commandData];
+            var dbscriptCommand = Commands[index];
 
             textBlockDatalong1.Text = dbscriptCommand.Datalong;
             Datalong1Tooltip = dbscriptCommand.DatalongTooltip;
@@ -329,7 +334,7 @@ namespace cmangos_designer.Designers
             checkBoxBuddyCommandAdditional.Content = dbscriptCommand.CommandAdditional;
             CommandAdditionalTooltip = dbscriptCommand.CommandAdditionalTooltip;
 
-            SelectedCommand = commandData.Item2;
+            SelectedCommand = index;
         }
 
         private int computeDbscriptFlagsForTargeting()
