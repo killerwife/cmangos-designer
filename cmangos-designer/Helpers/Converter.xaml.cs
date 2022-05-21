@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Data.Db;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -27,6 +28,7 @@ namespace cmangos_designer.Helpers
     public sealed partial class Converter : Page
     {
         public ObservableCollection<string> SniffConverterBinding { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> TCToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
 
         public Converter()
         {
@@ -35,6 +37,10 @@ namespace cmangos_designer.Helpers
             SniffConverterBinding.Add("waypoint_path");
             SniffConverterBinding.Add("creature_movement");
             SniffConverterBinding.Add("creature_movement_template");
+
+            TCToCmangosConverterBinding.Add("creature");
+            TCToCmangosConverterBinding.Add("gameobject");
+            TCToCmangosConverterBinding.Add("waypoint");
 
             sniffConverterComboBox.SelectedIndex = 0;
         }
@@ -103,6 +109,88 @@ namespace cmangos_designer.Helpers
             dataPackage.RequestedOperation = DataPackageOperation.Copy;
             dataPackage.SetText(output);
             Clipboard.SetContent(dataPackage);
+        }
+
+        private void buttonConvertTcToCmangos_Click(object sender, RoutedEventArgs e)
+        {
+            string[] lines = null;
+            lines = textBoxTCToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+            if (((string)comboBoxTCToCmangos.SelectedItem) == "creature")
+            {
+                var creatures = new List<Creature>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = line;
+                    var trimChars = new char[] { '(', ')', '\n', '\r', '\'' };
+                    foreach (var character in trimChars)
+                    {
+                        cleanedLine = cleanedLine.Replace(character.ToString(), String.Empty);
+                    }
+
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var creature = new Creature();
+                    creature.Guid = int.Parse(split[0]);
+                    creature.Id = int.Parse(split[1]);
+                    creature.Map = int.Parse(split[2]);
+                    creature.SpawnMask = int.Parse(split[5]);
+                    creature.PhaseMask = int.Parse(split[6]);                    
+                    creature.PositionX = float.Parse(split[9], CultureInfo.InvariantCulture);
+                    creature.PositionY = float.Parse(split[10], CultureInfo.InvariantCulture);
+                    creature.PositionZ = float.Parse(split[11], CultureInfo.InvariantCulture);
+                    creature.Orientation = float.Parse(split[12], CultureInfo.InvariantCulture);
+                    creature.SpawnTimeSecsMin = int.Parse(split[13]);
+                    creature.SpawnTimeSecsMax = int.Parse(split[13]);
+                    creature.SpawnDist = float.Parse(split[14], CultureInfo.InvariantCulture);
+                    creature.MovementType = int.Parse(split[18]);
+                    creatures.Add(creature);
+                }
+
+                bool isPhaseMask = checkBoxParameter.IsChecked.Value;
+                string output = "INSERT INTO creature(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, spawntimesecsmin, spawntimesecsmax, spawndist, MovementType) VALUES\n";
+                bool first = true;
+                foreach (var creature in creatures)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += creature.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+
+                DataPackage dataPackage = new DataPackage();
+                dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                dataPackage.SetText(output);
+                Clipboard.SetContent(dataPackage);
+            }
+            else if (((string)comboBoxTCToCmangos.SelectedItem) == "gameobject")
+            {
+                foreach (var line in lines)
+                {
+                    
+                }
+            }
+            else if (((string)comboBoxTCToCmangos.SelectedItem) == "waypoint")
+            {
+                foreach (var line in lines)
+                {
+
+                }
+            }
+        }
+
+        private void comboBoxTCToCmangos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) // deselected
+                return;
+
+            var table = (string)e.AddedItems[0];
+            if (table == "creature")
+                checkBoxParameter.Content = "PhaseMask";
         }
     }
 }
