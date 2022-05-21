@@ -1,4 +1,5 @@
 ﻿using cmangos_designer.Designers;
+using cmangos_designer.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -53,6 +54,11 @@ namespace cmangos_designer
         private void buttonAbout_Click(object sender, RoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(About));
+        }
+
+        private void buttonConverters_Click(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(Converter));
         }
     }
 }
