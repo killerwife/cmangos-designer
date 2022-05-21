@@ -19,6 +19,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Config;
+using Repository;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,6 +32,8 @@ namespace cmangos_designer
     /// </summary>
     public partial class App : Application
     {
+        public IServiceProvider Container { get; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -41,6 +45,13 @@ namespace cmangos_designer
             builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             m_configurationRoot = builder.Build();
+
+            var serviceCollection = new ServiceCollection();
+
+            serviceCollection.AddSingleton<DatabaseConfig>(m_configurationRoot.GetSection("DbConfig:TbcConfig").Get<Config.DatabaseConfig>());
+            serviceCollection.AddScoped<Mysql, Mysql>();
+
+            Container = serviceCollection.BuildServiceProvider();
 
             this.InitializeComponent();
         }
@@ -54,9 +65,6 @@ namespace cmangos_designer
         {
             m_window = new MainWindow();
             m_window.Activate();
-
-            var mysql = new Repository.Mysql(m_configurationRoot.GetSection("DbConfig:TbcConfig").Get<Config.DatabaseConfig>());
-
         }
 
         private Window m_window;

@@ -23,7 +23,7 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Map entity to table
-            modelBuilder.Entity<Dbscripts>().ToTable("dbscripts_on_event");
+            modelBuilder.Entity<Dbscripts>().HasNoKey();
         }
 
         public DbSet<Dbscripts> Dbscripts { get; set; } = null!;

@@ -1,8 +1,13 @@
-﻿namespace Data
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data
 {
+    [Keyless]
     public class Dbscripts
     {
-        public ushort Id { get; set; }
+        public uint Id { get; set; }
         public uint Delay { get; set; } 
         public uint Priority { get; set; }
         public ushort Command { get; set; }

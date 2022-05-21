@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Definitions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -7,6 +8,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -433,14 +435,14 @@ namespace cmangos_designer.Designers
 
         private void FillDbscript(Dbscripts dbscript)
         {
-            dbscript.Id = ushort.TryParse(textBoxId.Text, out ushort s) ? s : (ushort)0;
-            dbscript.Delay = uint.TryParse(textBoxDelay.Text, out uint u) ? u : (uint)0; ;
+            dbscript.Id = uint.TryParse(textBoxId.Text, out uint u) ? u : (ushort)0;
+            dbscript.Delay = uint.TryParse(textBoxDelay.Text, out u) ? u : (uint)0; ;
             dbscript.Priority = uint.TryParse(textBoxPriority.Text, out u) ? u : (uint)0; ;
             dbscript.Command = (ushort)((SelectedCommand != -1) ? SelectedCommand : 0);
             dbscript.Datalong = uint.TryParse(textBoxDatalong1.Text, out u) ? u : (uint)0; ;
             dbscript.Datalong2 = uint.TryParse(textBoxDatalong2.Text, out u) ? u : (uint)0; ;
             dbscript.Datalong3 = uint.TryParse(textBoxDatalong3.Text, out u) ? u : (uint)0; ;
-            dbscript.Buddy_entry = ushort.TryParse(textBoxBuddyEntry.Text, out s) ? s : (ushort)0;
+            dbscript.Buddy_entry = ushort.TryParse(textBoxBuddyEntry.Text, out ushort s) ? s : (ushort)0;
             dbscript.Search_radius = ushort.TryParse(textBoxSearchRadius.Text, out s) ? s : (ushort)0;
             uint flags = checkBoxBuddyAsTarget.IsChecked ?? true ? 1u : 0u;
             flags += checkBoxBuddyReverseDirection.IsChecked ?? true ? 2u : 0u;
@@ -540,6 +542,20 @@ namespace cmangos_designer.Designers
         private void buttonClearAll_Click(object sender, RoutedEventArgs e)
         {
             Dbscripts.Clear();
+        }
+
+        private void buttonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTable == null || SelectedTable.Length == 0)
+                return;
+
+            var container = ((App)App.Current).Container;
+            var mysql = (Mysql)container.GetService(typeof(Mysql));
+            Dbscripts.Clear();
+            uint Id = uint.TryParse(textBoxId.Text, out uint u) ? u : 0;
+            var results = mysql.Dbscripts.FromSqlRaw("SELECT * FROM " + SelectedTable + " WHERE Id ='" + Id.ToString() + "'").ToList();
+            foreach (var result in results)
+                Dbscripts.Add(result);
         }
     }
 }

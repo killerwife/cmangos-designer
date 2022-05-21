@@ -148,6 +148,7 @@
         <Button x:Name="buttonEdit" Grid.Column="3" Grid.Row="10" Grid.RowSpan="2" Click="buttonEdit_Click">Edit</Button>
         <Button x:Name="buttonClear" Grid.Column="3" Grid.Row="14" Grid.RowSpan="2" Click="buttonClear_Click">Clear</Button>
         <Button x:Name="buttonClearAll" Grid.Column="3" Grid.Row="16" Grid.RowSpan="2" Click="buttonClearAll_Click">ClearAll</Button>
+        <Button x:Name="buttonLoad" Grid.Column="3" Grid.Row="18" Grid.RowSpan="2"  Click="buttonLoad_Click"  ToolTipService.ToolTip="Takes Id from field and selected table">Load</Button>
 
     </Grid>
 </Page>
