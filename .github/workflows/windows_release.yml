@@ -47,14 +47,14 @@ jobs:
 
     # Create the app by building and publishing the project
     - name: Create the app
-      run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:Platform=$env:Platform
+      run: msbuild $env:Solution_Name /t:Publish /p:PublishDir="${{ $env:Solution_Name }}/bin/${{ $env:Configuration }}/publish" /p:Configuration=$env:Configuration /p:Platform=$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
 
     - name: Zip project # This would actually build your project, using zip for an example artifact
       run: |
-        7z a -r Cmangos_Designer.7z *
+        7z a -r Cmangos_Designer.7z ${{ $env:Solution_Name }}/bin/${{ $env:Configuration }}/publish/*
 
     - name: Create Release
       id: create_release
