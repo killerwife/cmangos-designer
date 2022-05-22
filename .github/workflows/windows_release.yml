@@ -54,7 +54,8 @@ jobs:
 
     - name: Zip project # This would actually build your project, using zip for an example artifact
       run: |
-        7z a -r Cmangos_Designer.7z ${{ env.Solution_Name }}/bin/${{ env.Configuration }}/publish/*
+        cd ${{ env.Solution_Name }}/bin/${{ env.Configuration }}/publish
+        7z a -r Cmangos_Designer.7z *
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -74,8 +75,9 @@ jobs:
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        Configuration: ${{ matrix.configuration }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./Cmangos_Designer.7z
+        asset_path: ./${{ env.Solution_Name }}/bin/${{ env.Configuration }}/publish/Cmangos_Designer.7z
         asset_name: Cmangos_Designer.7z
         asset_content_type: application/zip
