@@ -52,9 +52,9 @@ jobs:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
 
-    - name: Build project # This would actually build your project, using zip for an example artifact
+    - name: Zip project # This would actually build your project, using zip for an example artifact
       run: |
-        7z a -r ${{ env.Solution_Name }}/bin *
+        7z a -r Cmangos_Designer.7z *
 
     - name: Create Release
       id: create_release
