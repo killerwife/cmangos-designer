@@ -1,4 +1,6 @@
 ﻿using Data.Db;
+using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -13,9 +15,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,6 +31,8 @@ namespace cmangos_designer.Helpers
         public ObservableCollection<string> SniffConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> TCToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
 
+        private Timer timer;
+
         public Converter()
         {
             this.InitializeComponent();
@@ -43,6 +46,19 @@ namespace cmangos_designer.Helpers
             TCToCmangosConverterBinding.Add("waypoint");
 
             sniffConverterComboBox.SelectedIndex = 0;
+
+            timer = null;
+        }
+
+        private async void timerCallback(object state)
+        {
+            // do some work not connected with UI
+            ((App)App.Current).m_window.DispatcherQueue.TryEnqueue(new DispatcherQueueHandler(() =>
+            {
+                var redBrush = new SolidColorBrush();
+                redBrush.Color = Colors.White;
+                buttonConvertTcToCmangos.Foreground = redBrush;
+            }));
         }
 
         private void buttonConvert_Click(object sender, RoutedEventArgs e)
@@ -111,6 +127,16 @@ namespace cmangos_designer.Helpers
             Clipboard.SetContent(dataPackage);
         }
 
+        private string CleanLine(string line)
+        {
+            var trimChars = new char[] { '(', ')', '\n', '\r', '\'' };
+            foreach (var character in trimChars)
+            {
+                line = line.Replace(character.ToString(), String.Empty);
+            }
+            return line;
+        }
+
         private void buttonConvertTcToCmangos_Click(object sender, RoutedEventArgs e)
         {
             string[] lines = null;
@@ -120,13 +146,7 @@ namespace cmangos_designer.Helpers
                 var creatures = new List<Creature>();
                 foreach (var line in lines)
                 {
-                    var cleanedLine = line;
-                    var trimChars = new char[] { '(', ')', '\n', '\r', '\'' };
-                    foreach (var character in trimChars)
-                    {
-                        cleanedLine = cleanedLine.Replace(character.ToString(), String.Empty);
-                    }
-
+                    var cleanedLine = CleanLine(line);
                     if (cleanedLine.Length == 0)
                         continue;
 
@@ -169,18 +189,102 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "gameobject")
             {
+                var gameObjects = new List<GameObject>();
                 foreach (var line in lines)
                 {
-                    
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var gameObject = new GameObject();
+                    gameObject.Guid = int.Parse(split[0]);
+                    gameObject.Id = int.Parse(split[1]);
+                    gameObject.Map = int.Parse(split[2]);
+                    gameObject.SpawnMask = int.Parse(split[5]);
+                    gameObject.PhaseMask = int.Parse(split[6]);
+                    gameObject.PositionX = float.Parse(split[7], CultureInfo.InvariantCulture);
+                    gameObject.PositionY = float.Parse(split[8], CultureInfo.InvariantCulture);
+                    gameObject.PositionZ = float.Parse(split[9], CultureInfo.InvariantCulture);
+                    gameObject.Orientation = float.Parse(split[10], CultureInfo.InvariantCulture);
+                    gameObject.Rotation0 = float.Parse(split[11], CultureInfo.InvariantCulture);
+                    gameObject.Rotation1 = float.Parse(split[12], CultureInfo.InvariantCulture);
+                    gameObject.Rotation2 = float.Parse(split[13], CultureInfo.InvariantCulture);
+                    gameObject.Rotation3 = float.Parse(split[14], CultureInfo.InvariantCulture);
+                    gameObject.SpawnTimeSecsMin = int.Parse(split[15]);
+                    gameObject.SpawnTimeSecsMax = int.Parse(split[15]);
+                    gameObject.AnimProgress = int.Parse(split[16]);
+                    gameObject.State = int.Parse(split[17]);
+                    gameObjects.Add(gameObject);
                 }
+
+                bool isPhaseMask = checkBoxParameter.IsChecked.Value;
+                string output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax, animprogress, state) VALUES\n";
+                bool first = true;
+                foreach (var gameObject in gameObjects)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += gameObject.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+
+                DataPackage dataPackage = new DataPackage();
+                dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                dataPackage.SetText(output);
+                Clipboard.SetContent(dataPackage);
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "waypoint")
             {
+                var waypointPath = new List<WaypointPath>();
                 foreach (var line in lines)
                 {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
 
+                    var split = cleanedLine.Split(',');
+                    var waypoints = new WaypointPath();
+                    waypoints.PathId = int.Parse(split[0]);
+                    waypoints.Point = int.Parse(split[1]);
+                    waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
+                    waypoints.PositionY = float.Parse(split[3], CultureInfo.InvariantCulture);
+                    waypoints.PositionZ = float.Parse(split[4], CultureInfo.InvariantCulture);
+                    waypoints.Orientation = float.Parse(split[5], CultureInfo.InvariantCulture);
+                    if (waypoints.Orientation == 0)
+                        waypoints.Orientation = 100;
+                    waypoints.WaitTime = int.Parse(split[6]);
+                    waypoints.ScriptId = 0;
+                    waypoints.Comment = split[7];
+                    waypointPath.Add(waypoints);
                 }
+
+                string output = "INSERT INTO waypoint_path(PathId, Point, PositionX, PositionY, PositionZ, Orientation, WaitTime, ScriptId, Comment) VALUES\n";
+                bool first = true;
+                foreach (var waypoints in waypointPath)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += waypoints.GenerateSQL();
+                }
+
+                output += ";";
+
+                DataPackage dataPackage = new DataPackage();
+                dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                dataPackage.SetText(output);
+                Clipboard.SetContent(dataPackage);
             }
+
+            var redBrush = new SolidColorBrush();
+            redBrush.Color = Colors.Red;
+            buttonConvertTcToCmangos.Foreground = redBrush;
+            timer = new Timer(timerCallback, null, (int)TimeSpan.FromMilliseconds(5000).TotalMilliseconds, Timeout.Infinite);
         }
 
         private void comboBoxTCToCmangos_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -189,8 +293,10 @@ namespace cmangos_designer.Helpers
                 return;
 
             var table = (string)e.AddedItems[0];
-            if (table == "creature")
+            if (table == "creature" || table == "gameobject")
                 checkBoxParameter.Content = "PhaseMask";
+            else
+                checkBoxParameter.Content = "";
         }
     }
 }

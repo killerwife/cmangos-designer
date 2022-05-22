@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Data.Db
 
         public string GenerateSQL(bool phaseMask)
         {
-            string output = "(" + Guid + "," + Id + "," + Map + "," + SpawnMask + (phaseMask ? ("," + PhaseMask) : "") + "," + PositionX + "," + PositionY + "," + PositionZ + "," + Orientation + "," + SpawnTimeSecsMin + "," + SpawnTimeSecsMax + "," + SpawnDist + "," + MovementType + ")";
+            string output = "(" + Guid + "," + Id + "," + Map + "," + SpawnMask + (phaseMask ? ("," + PhaseMask) : "") + "," + PositionX.ToString(CultureInfo.InvariantCulture) + "," + PositionY.ToString(CultureInfo.InvariantCulture) + "," + PositionZ.ToString(CultureInfo.InvariantCulture) + "," + Orientation.ToString(CultureInfo.InvariantCulture) + "," + SpawnTimeSecsMin + "," + SpawnTimeSecsMax + "," + SpawnDist + "," + MovementType + ")";
             return output;
         }
     }

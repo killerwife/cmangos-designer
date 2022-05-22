@@ -67,7 +67,7 @@ namespace cmangos_designer
             m_window.Activate();
         }
 
-        private Window m_window;
+        public Window m_window;
         private readonly IConfigurationRoot m_configurationRoot;
     }
 }
