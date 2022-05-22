@@ -30,6 +30,7 @@ namespace cmangos_designer.Helpers
     {
         public ObservableCollection<string> SniffConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> TCToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> VmangosToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
 
         private Timer timer;
 
@@ -44,6 +45,10 @@ namespace cmangos_designer.Helpers
             TCToCmangosConverterBinding.Add("creature");
             TCToCmangosConverterBinding.Add("gameobject");
             TCToCmangosConverterBinding.Add("waypoint");
+
+            VmangosToCmangosConverterBinding.Add("creature");
+            VmangosToCmangosConverterBinding.Add("gameobject");
+            VmangosToCmangosConverterBinding.Add("creature_movement");
 
             sniffConverterComboBox.SelectedIndex = 0;
 
@@ -141,6 +146,7 @@ namespace cmangos_designer.Helpers
         {
             string[] lines = null;
             lines = textBoxTCToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+            string output = "";
             if (((string)comboBoxTCToCmangos.SelectedItem) == "creature")
             {
                 var creatures = new List<Creature>();
@@ -168,8 +174,8 @@ namespace cmangos_designer.Helpers
                     creatures.Add(creature);
                 }
 
-                bool isPhaseMask = checkBoxParameter.IsChecked.Value;
-                string output = "INSERT INTO creature(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, spawntimesecsmin, spawntimesecsmax, spawndist, MovementType) VALUES\n";
+                bool isPhaseMask = checkBoxTCParameter.IsChecked.Value;
+                output = "INSERT INTO creature(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, spawntimesecsmin, spawntimesecsmax, spawndist, MovementType) VALUES\n";
                 bool first = true;
                 foreach (var creature in creatures)
                 {
@@ -181,11 +187,6 @@ namespace cmangos_designer.Helpers
                 }
 
                 output += ";";
-
-                DataPackage dataPackage = new DataPackage();
-                dataPackage.RequestedOperation = DataPackageOperation.Copy;
-                dataPackage.SetText(output);
-                Clipboard.SetContent(dataPackage);
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "gameobject")
             {
@@ -218,8 +219,8 @@ namespace cmangos_designer.Helpers
                     gameObjects.Add(gameObject);
                 }
 
-                bool isPhaseMask = checkBoxParameter.IsChecked.Value;
-                string output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax, animprogress, state) VALUES\n";
+                bool isPhaseMask = checkBoxTCParameter.IsChecked.Value;
+                output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax, animprogress, state) VALUES\n";
                 bool first = true;
                 foreach (var gameObject in gameObjects)
                 {
@@ -231,11 +232,6 @@ namespace cmangos_designer.Helpers
                 }
 
                 output += ";";
-
-                DataPackage dataPackage = new DataPackage();
-                dataPackage.RequestedOperation = DataPackageOperation.Copy;
-                dataPackage.SetText(output);
-                Clipboard.SetContent(dataPackage);
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "waypoint")
             {
@@ -262,7 +258,7 @@ namespace cmangos_designer.Helpers
                     waypointPath.Add(waypoints);
                 }
 
-                string output = "INSERT INTO waypoint_path(PathId, Point, PositionX, PositionY, PositionZ, Orientation, WaitTime, ScriptId, Comment) VALUES\n";
+                output = "INSERT INTO waypoint_path(PathId, Point, PositionX, PositionY, PositionZ, Orientation, WaitTime, ScriptId, Comment) VALUES\n";
                 bool first = true;
                 foreach (var waypoints in waypointPath)
                 {
@@ -274,13 +270,14 @@ namespace cmangos_designer.Helpers
                 }
 
                 output += ";";
-
-                DataPackage dataPackage = new DataPackage();
-                dataPackage.RequestedOperation = DataPackageOperation.Copy;
-                dataPackage.SetText(output);
-                Clipboard.SetContent(dataPackage);
             }
 
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+
+            // attempt at giving confirmation it worked - doesnt work atm
             var redBrush = new SolidColorBrush();
             redBrush.Color = Colors.Red;
             buttonConvertTcToCmangos.Foreground = redBrush;
@@ -294,9 +291,157 @@ namespace cmangos_designer.Helpers
 
             var table = (string)e.AddedItems[0];
             if (table == "creature" || table == "gameobject")
-                checkBoxParameter.Content = "PhaseMask";
+                checkBoxTCParameter.Content = "PhaseMask";
             else
-                checkBoxParameter.Content = "";
+                checkBoxTCParameter.Content = "";
+        }
+
+        private void buttonConvertVmangosToCmangos_Click(object sender, RoutedEventArgs e)
+        {
+            string[] lines = null;
+            lines = textBoxVmangosToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+            string output = "";
+            if (((string)comboBoxVmangosToCmangos.SelectedItem) == "creature")
+            {
+                var creatures = new List<Creature>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var creature = new Creature();
+                    creature.Guid = int.Parse(split[0]);
+                    creature.Id = int.Parse(split[1]);
+                    creature.Map = int.Parse(split[5]);
+                    creature.SpawnMask = 1;
+                    creature.PhaseMask = 1;
+                    creature.PositionX = float.Parse(split[6], CultureInfo.InvariantCulture);
+                    creature.PositionY = float.Parse(split[7], CultureInfo.InvariantCulture);
+                    creature.PositionZ = float.Parse(split[8], CultureInfo.InvariantCulture);
+                    creature.Orientation = float.Parse(split[9], CultureInfo.InvariantCulture);
+                    creature.SpawnTimeSecsMin = int.Parse(split[10]);
+                    creature.SpawnTimeSecsMax = int.Parse(split[11]);
+                    creature.SpawnDist = float.Parse(split[12], CultureInfo.InvariantCulture);
+                    creature.MovementType = int.Parse(split[15]);
+                    creatures.Add(creature);
+                }
+
+                bool isPhaseMask = checkBoxVmangosParameter.IsChecked.Value;
+                output = "INSERT INTO creature(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, spawntimesecsmin, spawntimesecsmax, spawndist, MovementType) VALUES\n";
+                bool first = true;
+                foreach (var creature in creatures)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += creature.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+            }
+            else if (((string)comboBoxVmangosToCmangos.SelectedItem) == "gameobject")
+            {
+                var gameObjects = new List<GameObject>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var gameObject = new GameObject();
+                    gameObject.Guid = int.Parse(split[0]);
+                    gameObject.Id = int.Parse(split[1]);
+                    gameObject.Map = int.Parse(split[2]);
+                    gameObject.SpawnMask = 1;
+                    gameObject.PhaseMask = 1;
+                    gameObject.PositionX = float.Parse(split[3], CultureInfo.InvariantCulture);
+                    gameObject.PositionY = float.Parse(split[4], CultureInfo.InvariantCulture);
+                    gameObject.PositionZ = float.Parse(split[5], CultureInfo.InvariantCulture);
+                    gameObject.Orientation = float.Parse(split[6], CultureInfo.InvariantCulture);
+                    gameObject.Rotation0 = float.Parse(split[7], CultureInfo.InvariantCulture);
+                    gameObject.Rotation1 = float.Parse(split[8], CultureInfo.InvariantCulture);
+                    gameObject.Rotation2 = float.Parse(split[9], CultureInfo.InvariantCulture);
+                    gameObject.Rotation3 = float.Parse(split[10], CultureInfo.InvariantCulture);
+                    gameObject.SpawnTimeSecsMin = int.Parse(split[11]);
+                    gameObject.SpawnTimeSecsMax = int.Parse(split[12]);
+                    gameObject.AnimProgress = int.Parse(split[13]);
+                    gameObject.State = int.Parse(split[14]);
+                    gameObjects.Add(gameObject);
+                }
+
+                bool isPhaseMask = checkBoxVmangosParameter.IsChecked.Value;
+                output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax, animprogress, state) VALUES\n";
+                bool first = true;
+                foreach (var gameObject in gameObjects)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += gameObject.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+            }
+            else if (((string)comboBoxVmangosToCmangos.SelectedItem) == "creature_movement")
+            {
+                var waypointPath = new List<WaypointPath>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var waypoints = new WaypointPath();
+                    waypoints.PathId = int.Parse(split[0]);
+                    waypoints.Point = int.Parse(split[1]);
+                    waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
+                    waypoints.PositionY = float.Parse(split[3], CultureInfo.InvariantCulture);
+                    waypoints.PositionZ = float.Parse(split[4], CultureInfo.InvariantCulture);
+                    waypoints.Orientation = float.Parse(split[5], CultureInfo.InvariantCulture);
+                    if (waypoints.Orientation == 0)
+                        waypoints.Orientation = 100;
+                    waypoints.WaitTime = int.Parse(split[6]);
+                    waypoints.ScriptId = 0;
+                    waypoints.Comment = "";
+                    waypointPath.Add(waypoints);
+                }
+
+                output = "INSERT INTO waypoint_path(PathId, Point, PositionX, PositionY, PositionZ, Orientation, WaitTime, ScriptId, Comment) VALUES\n";
+                bool first = true;
+                foreach (var waypoints in waypointPath)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += waypoints.GenerateSQL();
+                }
+
+                output += ";";
+            }
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private void comboBoxVmangosToCmangos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) // deselected
+                return;
+
+            var table = (string)e.AddedItems[0];
+            if (table == "creature" || table == "gameobject")
+                checkBoxVmangosParameter.Content = "PhaseMask";
+            else
+                checkBoxVmangosParameter.Content = "";
         }
     }
 }

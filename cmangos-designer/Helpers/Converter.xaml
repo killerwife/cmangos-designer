@@ -40,11 +40,19 @@
         <Button x:Name="buttonConvert" Grid.Column="0" Grid.Row="9" Grid.RowSpan="2" Click="buttonConvert_Click">Convert to clipboard</Button>
 
         <!-- tc to cmangos sql section -->
-        <TextBlock x:Name="textBlockTCToCmangos" Grid.Column="1" Grid.Row="0">TC SQL line to Cmangos SQL</TextBlock>
+        <TextBlock x:Name="textBlockTCToCmangos" Grid.Column="1" Grid.Row="0">TC SQL to Cmangos SQL</TextBlock>
         <TextBox x:Name="textBoxTCToCmangos" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" PlaceholderText="Input tc sql row here" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
         <ComboBox x:Name="comboBoxTCToCmangos" Header="Table" ItemsSource="{x:Bind TCToCmangosConverterBinding, Mode=OneWay}"
                             PlaceholderText="Pick a table" Grid.Column="1" Grid.Row="5" Grid.RowSpan="5" Grid.ColumnSpan="5" SelectionChanged="comboBoxTCToCmangos_SelectionChanged"/>
-        <CheckBox x:Name="checkBoxParameter" Grid.Column="1" Grid.Row="7">Parameter</CheckBox>
+        <CheckBox x:Name="checkBoxTCParameter" Grid.Column="1" Grid.Row="7">Parameter</CheckBox>
         <Button x:Name="buttonConvertTcToCmangos" Grid.Column="1" Grid.Row="8" Grid.RowSpan="2" Click="buttonConvertTcToCmangos_Click">Convert to clipboard</Button>
+        
+        <!-- vmangos to cmangos sql section -->
+        <TextBlock x:Name="textBlockVmangosToCmangos" Grid.Column="2" Grid.Row="0">Vmangos SQL to Cmangos SQL</TextBlock>
+        <TextBox x:Name="textBoxVmangosToCmangos" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" PlaceholderText="Input tc sql row here" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
+        <ComboBox x:Name="comboBoxVmangosToCmangos" Header="Table" ItemsSource="{x:Bind VmangosToCmangosConverterBinding, Mode=OneWay}"
+                            PlaceholderText="Pick a table" Grid.Column="2" Grid.Row="5" Grid.RowSpan="5" Grid.ColumnSpan="5" SelectionChanged="comboBoxVmangosToCmangos_SelectionChanged"/>
+        <CheckBox x:Name="checkBoxVmangosParameter" Grid.Column="2" Grid.Row="7">Parameter</CheckBox>
+        <Button x:Name="buttonConvertVmangosToCmangos" Grid.Column="2" Grid.Row="8" Grid.RowSpan="2" Click="buttonConvertVmangosToCmangos_Click">Convert to clipboard</Button>
     </Grid>
 </Page>
