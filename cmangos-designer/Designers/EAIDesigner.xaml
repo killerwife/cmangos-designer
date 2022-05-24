@@ -1,0 +1,95 @@
+﻿<Page
+    x:Class="cmangos_designer.Designers.EAIDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:cmangos_designer.Designers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Width="800" Height="800" Background="#565656">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="textBlockId" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxId" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockCreatureId" Grid.Column="0" Grid.Row="1">Delay</TextBlock>
+        <TextBox x:Name="textBoxCreatureId" Grid.Column="1" Grid.Row="1" Width="150"></TextBox>
+        <ComboBox x:Name="ComboEventType" SelectionChanged="ComboEventType_SelectionChanged" Header="Event" ItemsSource="{x:Bind EventBinding, Mode=OneWay}"
+                            PlaceholderText="Pick an event" Width="300" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5">
+        </ComboBox>
+        <TextBlock x:Name="textBlockInversePhaseMask" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxInversePhaseMask" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventChance" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventChance" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <!-- event flags -->
+        <CheckBox x:Name="checkBoxRepeatable" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Repeatable</CheckBox>
+        <CheckBox x:Name="checkBoxDifficulty0" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Difficulty 0</CheckBox>
+        <CheckBox x:Name="checkBoxDifficulty1" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Difficulty 1</CheckBox>
+        <CheckBox x:Name="checkBoxDifficulty2" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Difficulty 2</CheckBox>
+        <CheckBox x:Name="checkBoxDifficulty3" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Difficulty 3</CheckBox>
+        <CheckBox x:Name="checkBoxRandomAction" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Random Action</CheckBox>
+        <CheckBox x:Name="checkBoxDebugOnly" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Debug Only</CheckBox>
+        <CheckBox x:Name="checkBoxRangedModeOnly" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Ranged Mode</CheckBox>
+        <CheckBox x:Name="checkBoxMeleeModeOnly" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Melee Mode</CheckBox>
+        <CheckBox x:Name="checkBoxCombatAction" Grid.Column="2" Grid.Row="6" Checked="" Unchecked="">Combat Action</CheckBox>
+        <!-- event params -->
+        <TextBlock x:Name="textBlockEventParam1" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam1" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventParam2" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam2" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventParam3" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam3" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventParam4" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam4" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventParam5" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam5" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockEventParam6" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxEventParam6" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <!-- action 1 -->
+        <ComboBox x:Name="ComboAction1Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5">
+        </ComboBox>
+        <TextBlock x:Name="textBlockAction1Param1" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction1Param1" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction1Param2" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction1Param2" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction1Param3" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction1Param3" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <!-- action 2 -->
+        <ComboBox x:Name="ComboAction2Type" SelectionChanged="ComboAction2Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5">
+        </ComboBox>
+        <TextBlock x:Name="textBlockAction2Param1" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction2Param1" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction2Param2" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction2Param2" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction2Param3" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction2Param3" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <!-- action 3 -->
+        <ComboBox x:Name="ComboAction3Type" SelectionChanged="ComboAction3Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="5">
+        </ComboBox>
+        <TextBlock x:Name="textBlockAction3Param1" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction3Param1" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction3Param2" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction3Param2" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <TextBlock x:Name="textBlockAction3Param3" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxAction3Param3" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+        <!-- comment -->
+        <TextBlock x:Name="textBlockComment" Grid.Column="0" Grid.Row="0">Id</TextBlock>
+        <TextBox x:Name="textBoxComment" Grid.Column="1" Grid.Row="0" Width="150"></TextBox>
+    </Grid>
+</Page>
