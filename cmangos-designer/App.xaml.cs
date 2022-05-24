@@ -53,6 +53,8 @@ namespace cmangos_designer
 
             Container = serviceCollection.BuildServiceProvider();
 
+            RequestedTheme = ApplicationTheme.Dark;
+
             this.InitializeComponent();
         }
 

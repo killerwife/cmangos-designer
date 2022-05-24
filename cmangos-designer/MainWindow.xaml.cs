@@ -28,7 +28,7 @@ namespace cmangos_designer
         public MainWindow()
         {
             this.InitializeComponent();
-            if (Content is FrameworkElement rootElement) // designed it in dark theme - remove this if someone adds light theme design - also change stackpanel
+            if (Content is FrameworkElement rootElement) // designed it in dark theme - remove this if someone adds light theme design - also change App
                 rootElement.RequestedTheme = ElementTheme.Dark;
             contentFrame.Navigate(typeof(DbscriptsDesigner));
         }
