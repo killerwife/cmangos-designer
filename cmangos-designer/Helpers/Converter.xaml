@@ -49,7 +49,7 @@
         
         <!-- vmangos to cmangos sql section -->
         <TextBlock x:Name="textBlockVmangosToCmangos" Grid.Column="2" Grid.Row="0">Vmangos SQL to Cmangos SQL</TextBlock>
-        <TextBox x:Name="textBoxVmangosToCmangos" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" PlaceholderText="Input tc sql row here" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
+        <TextBox x:Name="textBoxVmangosToCmangos" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" PlaceholderText="Input vmangos sql row here" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
         <ComboBox x:Name="comboBoxVmangosToCmangos" Header="Table" ItemsSource="{x:Bind VmangosToCmangosConverterBinding, Mode=OneWay}"
                             PlaceholderText="Pick a table" Grid.Column="2" Grid.Row="5" Grid.RowSpan="5" Grid.ColumnSpan="5" SelectionChanged="comboBoxVmangosToCmangos_SelectionChanged"/>
         <CheckBox x:Name="checkBoxVmangosParameter" Grid.Column="2" Grid.Row="7">Parameter</CheckBox>
