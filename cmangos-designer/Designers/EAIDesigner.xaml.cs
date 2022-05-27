@@ -184,27 +184,114 @@ namespace cmangos_designer.Designers
 
         private void ComboEventType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count == 0) // deselected
+            {
+                textBoxEventParam1.Text = "";
+                textBoxEventParam2.Text = "";
+                textBoxEventParam3.Text = "";
+                textBoxEventParam4.Text = "";
+                textBoxEventParam5.Text = "";
+                textBoxEventParam6.Text = "";
+                EventParam1Tooltip = "";
+                EventParam2Tooltip = "";
+                EventParam3Tooltip = "";
+                EventParam4Tooltip = "";
+                EventParam5Tooltip = "";
+                EventParam6Tooltip = "";
+                return;
+            }
 
+            var commandData = (string)e.AddedItems[0];
+
+            var index = EventsPairing[commandData];
+            var scriptEvent = Events[index];
+
+            textBlockEventParam1.Text = scriptEvent.Param1;
+            textBlockEventParam2.Text = scriptEvent.Param2;
+            textBlockEventParam3.Text = scriptEvent.Param3;
+            textBlockEventParam4.Text = scriptEvent.Param4;
+            textBlockEventParam5.Text = scriptEvent.Param5;
+            textBlockEventParam6.Text = scriptEvent.Param6;
+            EventParam1Tooltip = scriptEvent.Param1Tooltip;
+            EventParam2Tooltip = scriptEvent.Param2Tooltip;
+            EventParam3Tooltip = scriptEvent.Param3Tooltip;
+            EventParam4Tooltip = scriptEvent.Param4Tooltip;
+            EventParam5Tooltip = scriptEvent.Param5Tooltip;
+            EventParam6Tooltip = scriptEvent.Param6Tooltip;
         }
 
         private void ComboAction1Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int senderIndex = 0;
+            if (sender == ComboAction2Type)
+                senderIndex = 1;
+            else if (sender == ComboAction3Type)
+                senderIndex = 2;
 
-        }
+            if (e.AddedItems.Count == 0) // deselected
+            {
+                if (senderIndex == 0)
+                {
+                    textBlockAction1Param1.Text = "";
+                    textBlockAction1Param2.Text = "";
+                    textBlockAction1Param3.Text = "";
+                    Action1Param1Tooltip = "";
+                    Action1Param2Tooltip = "";
+                    Action1Param3Tooltip = "";
+                }
+                else if (senderIndex == 1)
+                {
+                    textBlockAction2Param1.Text = "";
+                    textBlockAction2Param2.Text = "";
+                    textBlockAction2Param3.Text = "";
+                    Action2Param1Tooltip = "";
+                    Action2Param2Tooltip = "";
+                    Action2Param3Tooltip = "";
+                }
+                else
+                {
+                    textBlockAction3Param1.Text = "";
+                    textBlockAction3Param2.Text = "";
+                    textBlockAction3Param3.Text = "";
+                    Action3Param1Tooltip = "";
+                    Action3Param2Tooltip = "";
+                    Action3Param3Tooltip = "";
+                }
+                return;
+            }
 
-        private void ComboAction3Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            var commandData = (string)e.AddedItems[0];
 
-        }
+            var index = ActionsPairing[commandData] - 1;
+            var scriptAction = Actions[index];
 
-        private void ComboAction2Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void checkBoxBuddies_Checked(object sender, RoutedEventArgs e)
-        {
-
+            if (senderIndex == 0)
+            {
+                textBlockAction1Param1.Text = scriptAction.Param1;
+                textBlockAction1Param2.Text = scriptAction.Param2;
+                textBlockAction1Param3.Text = scriptAction.Param3;
+                Action1Param1Tooltip = scriptAction.Param1Tooltip;
+                Action1Param2Tooltip = scriptAction.Param2Tooltip;
+                Action1Param3Tooltip = scriptAction.Param3Tooltip;
+            }
+            else if (senderIndex == 1)
+            {
+                textBlockAction2Param1.Text = scriptAction.Param1;
+                textBlockAction2Param2.Text = scriptAction.Param2;
+                textBlockAction2Param3.Text = scriptAction.Param3;
+                Action2Param1Tooltip = scriptAction.Param1Tooltip;
+                Action2Param2Tooltip = scriptAction.Param2Tooltip;
+                Action2Param3Tooltip = scriptAction.Param3Tooltip;
+            }
+            else
+            {
+                textBlockAction3Param1.Text = scriptAction.Param1;
+                textBlockAction3Param2.Text = scriptAction.Param2;
+                textBoxAction3Param3.Text = scriptAction.Param3;
+                Action3Param1Tooltip = scriptAction.Param1Tooltip;
+                Action3Param2Tooltip = scriptAction.Param2Tooltip;
+                Action3Param3Tooltip = scriptAction.Param3Tooltip;
+            }
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -214,6 +301,17 @@ namespace cmangos_designer.Designers
             textBoxCreatureId.Text = SelectedScript.Creature_id.ToString();
             ComboEventType.SelectedIndex = (int)SelectedScript.Event_type;
             textBoxInversePhaseMask.Text = SelectedScript.Event_inverse_phase_mask.ToString();
+            uint flags = SelectedScript.Event_flags;
+            checkBoxRepeatable.IsChecked = (flags & 0x1) == 1;
+            checkBoxDifficulty0.IsChecked = (flags & 0x2) == 1;
+            checkBoxDifficulty1.IsChecked = (flags & 0x4) == 1;
+            checkBoxDifficulty2.IsChecked = (flags & 0x8) == 1;
+            checkBoxDifficulty3.IsChecked = (flags & 0x10) == 1;
+            checkBoxRandomAction.IsChecked = (flags & 0x20) == 1;
+            checkBoxDebugOnly.IsChecked = (flags & 0x80) == 1;
+            checkBoxRangedModeOnly.IsChecked = (flags & 0x100) == 1;
+            checkBoxMeleeModeOnly.IsChecked = (flags & 0x200) == 1;
+            checkBoxCombatAction.IsChecked = (flags & 0x400) == 1;
             textBoxEventChance.Text = SelectedScript.Event_chance.ToString();
             textBoxEventParam1.Text = SelectedScript.Event_param1.ToString();
             textBoxEventParam2.Text = SelectedScript.Event_param2.ToString();
@@ -276,7 +374,28 @@ namespace cmangos_designer.Designers
             script.Event_type = ComboEventType.SelectedIndex >= 0 ? (uint)ComboEventType.SelectedIndex : 0;
             script.Event_inverse_phase_mask = int.TryParse(textBoxInversePhaseMask.Text, out int i) ? i : 0;
             script.Event_chance = uint.TryParse(textBoxEventChance.Text, out u) ? u : 0;
-            script.Event_flags = uint.TryParse(textBoxId.Text, out u) ? u : 0;
+            uint flags = 0;
+            if (checkBoxRepeatable.IsChecked == true)
+                flags |= 0x1;
+            if (checkBoxDifficulty0.IsChecked == true)
+                flags |= 0x2;
+            if (checkBoxDifficulty1.IsChecked == true)
+                flags |= 0x4;
+            if (checkBoxDifficulty2.IsChecked == true)
+                flags |= 0x8;
+            if (checkBoxDifficulty3.IsChecked == true)
+                flags |= 0x10;
+            if (checkBoxRandomAction.IsChecked == true)
+                flags |= 0x20;
+            if (checkBoxDebugOnly.IsChecked == true)
+                flags |= 0x80;
+            if (checkBoxRangedModeOnly.IsChecked == true)
+                flags |= 0x100;
+            if (checkBoxMeleeModeOnly.IsChecked == true)
+                flags |= 0x200;
+            if (checkBoxCombatAction.IsChecked == true)
+                flags |= 0x400;
+            script.Event_flags = flags;
             script.Event_param1 = int.TryParse(textBoxEventParam1.Text, out i) ? i : 0;
             script.Event_param2 = int.TryParse(textBoxEventParam2.Text, out i) ? i : 0;
             script.Event_param3 = int.TryParse(textBoxEventParam3.Text, out i) ? i : 0;
@@ -320,6 +439,16 @@ namespace cmangos_designer.Designers
             textBoxEventParam4.Text = "";
             textBoxEventParam5.Text = "";
             textBoxEventParam6.Text = "";
+            checkBoxRepeatable.IsChecked = false;
+            checkBoxDifficulty0.IsChecked = false;
+            checkBoxDifficulty1.IsChecked = false;
+            checkBoxDifficulty2.IsChecked = false;
+            checkBoxDifficulty3.IsChecked = false;
+            checkBoxRandomAction.IsChecked = false;
+            checkBoxDebugOnly.IsChecked = false;
+            checkBoxRangedModeOnly.IsChecked = false;
+            checkBoxMeleeModeOnly.IsChecked = false;
+            checkBoxCombatAction.IsChecked = false;
             ComboAction1Type.SelectedIndex = -1;
             textBoxAction1Param1.Text = "";
             textBoxAction1Param2.Text = "";

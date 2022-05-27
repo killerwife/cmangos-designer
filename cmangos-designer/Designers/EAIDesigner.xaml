@@ -92,7 +92,7 @@
         <TextBlock x:Name="textBlockAction1Param3" Grid.Column="2" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action1Param3Tooltip, Mode=OneWay}">Param3</TextBlock>
         <TextBox x:Name="textBoxAction1Param3" Grid.Column="3" Grid.Row="12" Width="150"></TextBox>
         <!-- action 2 -->
-        <ComboBox x:Name="ComboAction2Type" SelectionChanged="ComboAction2Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
+        <ComboBox x:Name="ComboAction2Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
                             PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="13" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
         </ComboBox>
         <TextBlock x:Name="textBlockAction2Param1" Grid.Column="2" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action2Param1Tooltip, Mode=OneWay}">Param1</TextBlock>
@@ -102,7 +102,7 @@
         <TextBlock x:Name="textBlockAction2Param3" Grid.Column="2" Grid.Row="15" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action2Param3Tooltip, Mode=OneWay}">Param3</TextBlock>
         <TextBox x:Name="textBoxAction2Param3" Grid.Column="3" Grid.Row="15" Width="150"></TextBox>
         <!-- action 3 -->
-        <ComboBox x:Name="ComboAction3Type" SelectionChanged="ComboAction3Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
+        <ComboBox x:Name="ComboAction3Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
                             PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="16" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
         </ComboBox>
         <TextBlock x:Name="textBlockAction3Param1" Grid.Column="2" Grid.Row="16" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action3Param1Tooltip, Mode=OneWay}">Param1</TextBlock>
