@@ -1,5 +1,6 @@
 ﻿using Config;
 using Data;
+using Data.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -24,8 +25,10 @@ namespace Repository
         {
             //Map entity to table
             modelBuilder.Entity<Dbscripts>().HasNoKey();
+            modelBuilder.Entity<EventAIScript>().ToTable("creature_ai_scripts");
         }
 
         public DbSet<Dbscripts> Dbscripts { get; set; } = null!;
+        public DbSet<EventAIScript> EventAIScripts { get; set; } = null!;
     }
 }
