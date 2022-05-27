@@ -255,6 +255,8 @@ namespace cmangos_designer.Designers
         {
             if (e.AddedItems.Count == 0) // deselected
             {
+                textBlockDescription.Text = "";
+
                 textBlockDatalong1.Text = "Datalong";
                 Datalong1Tooltip = "";
 
@@ -293,6 +295,8 @@ namespace cmangos_designer.Designers
 
             var index = CommandStringPairing[commandData];
             var dbscriptCommand = Commands[index];
+
+            textBlockDescription.Text = dbscriptCommand.Description;
 
             textBlockDatalong1.Text = dbscriptCommand.Datalong;
             Datalong1Tooltip = dbscriptCommand.DatalongTooltip;

@@ -36,7 +36,7 @@
   {
     "Id": 1,
     "Name": "Emote",
-    "Description": "",
+    "Description": "Plays emote or sets emote state at source",
     "Datalong": "EmoteId",
     "DatalongTooltip": "Emote ID from core enum Emote",
     "Datalong2": "",
