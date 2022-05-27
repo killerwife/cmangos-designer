@@ -50,6 +50,12 @@
     <None Update="dbscriptcommands.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="eventAIActions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="eventAIEvents.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Page Update="Designers\EAIDesigner.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

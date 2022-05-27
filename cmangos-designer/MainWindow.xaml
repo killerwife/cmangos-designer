@@ -19,6 +19,7 @@
                         <MenuBarItem.Items>
                             <MenuFlyoutItem Text="Waypoints" Click="buttonWaypoints_Click"/>
                             <MenuFlyoutItem Text="Dbscripts" Click="buttonDbscripts_Click"/>
+                            <MenuFlyoutItem Text="EventAI" Click="buttonEventAI_Click"/>
                         </MenuBarItem.Items>
                     </MenuBarItem>
                     <MenuBarItem x:Name="menuBarHelpers" Title="Helpers">

@@ -1,0 +1,16 @@
+[
+	{
+	    "Id": 1,
+    	"Name": "ACTION_T_TEXT",
+    	"Param1": "",
+    	"Param2": "",
+    	"Param3": ""
+	},
+	{
+	    "Id": 2,
+    	"Name": "ACTION_T_SET_FACTION",
+    	"Param1": "",
+    	"Param2": "",
+    	"Param3": ""
+	}
+]

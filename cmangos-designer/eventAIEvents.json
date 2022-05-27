@@ -1,0 +1,22 @@
+[
+	{
+	    "Id": 0,
+    	"Name": "EVENT_T_TIMER_IN_COMBAT",
+    	"Param1": "",
+    	"Param2": "",
+    	"Param3": "",
+    	"Param4": "",
+    	"Param5": "",
+    	"Param6": ""
+	},
+	{
+	    "Id": 1,
+    	"Name": "EVENT_T_TIMER_OOC",
+    	"Param1": "",
+    	"Param2": "",
+    	"Param3": "",
+    	"Param4": "",
+    	"Param5": "",
+    	"Param6": ""
+	}
+]

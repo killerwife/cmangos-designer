@@ -67,6 +67,11 @@ namespace cmangos_designer
             contentFrame.Navigate(typeof(DbscriptsDesigner));
         }
 
+        private void buttonEventAI_Click(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(EAIDesigner));
+        }
+
         private void buttonAbout_Click(object sender, RoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(About));
