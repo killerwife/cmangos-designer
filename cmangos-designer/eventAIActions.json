@@ -1,16 +1,522 @@
 [
-	{
-	    "Id": 1,
-    	"Name": "ACTION_T_TEXT",
-    	"Param1": "",
-    	"Param2": "",
-    	"Param3": ""
-	},
-	{
-	    "Id": 2,
-    	"Name": "ACTION_T_SET_FACTION",
-    	"Param1": "",
-    	"Param2": "",
-    	"Param3": ""
-	}
+  {
+    "Id": 1,
+    "Name": "Display text - DEPRECATED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 2,
+    "Name": "Set Faction",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 3,
+    "Name": "Morph to Entry or Model",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 4,
+    "Name": "Play sound",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 5,
+    "Name": "Play emote",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 6,
+    "Name": "UNUSED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 7,
+    "Name": "UNUSED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 8,
+    "Name": "UNUSED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 9,
+    "Name": "Play random sound",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 10,
+    "Name": "Play random emote",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 11,
+    "Name": "Cast spell",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 12,
+    "Name": "Spawn temporary spawn",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 13,
+    "Name": "Modify threat of target",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 14,
+    "Name": "Modify all threat",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 15,
+    "Name": "Quest expored event",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 16,
+    "Name": "Quest creature/go credit",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 17,
+    "Name": "Set unit field - DEPRECATED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 18,
+    "Name": "Set unit flag",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 19,
+    "Name": "Remove unit flag",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 20,
+    "Name": "Enable/Disable auto attack",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 21,
+    "Name": "Enable/Disable combat movement",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 22,
+    "Name": "Set AI phase",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 23,
+    "Name": "Increment AI phase",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 24,
+    "Name": "Evade",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 25,
+    "Name": "Flee for assist",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 26,
+    "Name": "Quest explored event for group",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 27,
+    "Name": "Quest creature/go credit for group",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 28,
+    "Name": "Remove auras due to spell",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 29,
+    "Name": "Range movement - DEPRECATED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 30,
+    "Name": "Set random AI phase",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 31,
+    "Name": "Set random AI phase range",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 32,
+    "Name": "Summon EAI summon - DEPRECATED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 33,
+    "Name": "Target killed creature credit",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 34,
+    "Name": "Set instance data",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 35,
+    "Name": "Set instance data64",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 36,
+    "Name": "Update template",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 37,
+    "Name": "Suicide",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 38,
+    "Name": "Zone combat pulse",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 39,
+    "Name": "Call for help",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 40,
+    "Name": "Set sheath state",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 41,
+    "Name": "Forced despawn",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 42,
+    "Name": "Set death prevention",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 43,
+    "Name": "Mount to entry or model",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 44,
+    "Name": "Chanced text - DEPRECATED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 45,
+    "Name": "Throw AI event around",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 46,
+    "Name": "Set throw AI event mask",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 47,
+    "Name": "Set stand state",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 48,
+    "Name": "Change movement type",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 49,
+    "Name": "UNUSED",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 50,
+    "Name": "Set react state",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 51,
+    "Name": "Pause waypoints",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 52,
+    "Name": "Interrupt spell",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 53,
+    "Name": "Start relay script",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 54,
+    "Name": "Display text",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 55,
+    "Name": "Attack start",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 56,
+    "Name": "Despawn guardians",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 57,
+    "Name": "Set ranged mode",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 58,
+    "Name": "Set walk mode",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 59,
+    "Name": "Set facing",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 60,
+    "Name": "Set spell set",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 61,
+    "Name": "Set immobilized state",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 62,
+    "Name": "Set despawn aggregation",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 63,
+    "Name": "Set immunity set",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 64,
+    "Name": "Set follow movement",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  },
+  {
+    "Id": 2,
+    "Name": "",
+    "Description": "",
+    "Param1": "",
+    "Param2": "",
+    "Param3": ""
+  }
 ]
