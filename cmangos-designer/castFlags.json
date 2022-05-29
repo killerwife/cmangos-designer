@@ -1,0 +1,67 @@
+[
+  {
+	"Flag": 1,
+	"Name": "CAST_INTERRUPT_PREVIOUS",
+	"Description": "Interrupt any spell casting"
+  },
+  {
+	"Flag": 2,
+	"Name": "CAST_TRIGGERED",
+	"Description": "Triggered (this makes spell cost zero mana and have no cast time) - bypasses many checks, only for scripts"
+  },
+  {
+	"Flag": 4,
+	"Name": "CAST_FORCE_CAST",
+	"Description": "Forces cast even if creature is out of mana or out of range"
+  },
+  {
+	"Flag": 8,
+	"Name": "CAST_NO_MELEE_IF_OOM",
+	"Description": "Prevents creature from entering melee if out of mana or out of range"
+  },
+  {
+	"Flag": 16,
+	"Name": "CAST_FORCE_TARGET_SELF",
+	"Description": "Forces the target to cast this spell on itself"
+  },
+  {
+	"Flag": 32,
+	"Name": "CAST_AURA_NOT_PRESENT",
+	"Description": "Only casts the spell if the target does not have an aura from the spell"
+  },
+  {
+	"Flag": 64,
+	"Name": "CAST_IGNORE_UNSELECTABLE_TARGET",
+	"Description": "Can target UNIT_FLAG_NOT_SELECTABLE - Needed in some scripts"
+  },
+  {
+	"Flag": 128,
+	"Name": "CAST_SWITCH_CASTER_TARGET",
+	"Description": "Switches target and caster for spell cast"
+  },
+  {
+	"Flag": 256,
+	"Name": "CAST_MAIN_SPELL",
+	"Description": "Marks main spell for ranged mode - DEPRECATED - use creature_spell_list instead"
+  },
+  {
+	"Flag": 512,
+	"Name": "CAST_PLAYER_ONLY",
+	"Description": "Selects only player targets - substitution for EAI not having more params"
+  },
+  {
+	"Flag": 1024,
+	"Name": "CAST_DISTANCE_YOURSELF",
+	"Description": "If spell with this cast flag hits main aggro target, caster distances himself - EAI only - DEPRECATED - use creature_spell_list instead"
+  },
+  {
+	"Flag": 2048,
+	"Name": "CAST_TARGET_CASTING",
+	"Description": "Selects only targets that are casting - EAI only"
+  },
+  {
+	"Flag": 4096,
+	"Name": "CAST_ONLY_XYZ",
+	"Description": "Targets only coords of target and not unit"
+  }
+]

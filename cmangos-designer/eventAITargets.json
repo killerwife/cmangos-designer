@@ -1,0 +1,97 @@
+[
+  {
+  	"Id": 0,
+  	"Name": "Self",
+  	"Description": "Targets self"
+  },
+  {
+  	"Id": 1,
+  	"Name": "Aggro target",
+  	"Description": "Currently attacked target"
+  },
+  {
+  	"Id": 2,
+  	"Name": "Second aggro",
+  	"Description": "Second aggro target from top of threatlist"
+  },
+  {
+  	"Id": 3,
+  	"Name": "Last aggro",
+  	"Description": "Last aggro target in threatlist"
+  },
+  {
+  	"Id": 4,
+  	"Name": "Random target",
+  	"Description": "Random target in threatlist"
+  },
+  {
+  	"Id": 5,
+  	"Name": "Random target except top",
+  	"Description": "Random target in threatlist except first aggro"
+  },
+  {
+  	"Id": 6,
+  	"Name": "Action invoker",
+  	"Description": "Unit who caused this Event to occur"
+  },
+  {
+  	"Id": 7,
+  	"Name": "Action invoker owner",
+  	"Description": "Onwer of unit who caused this Event to occur"
+  },
+  {
+  	"Id": 8,
+  	"Name": "Random player",
+  	"Description": "Random player in threat list""
+  },
+  {
+  	"Id": 9,
+  	"Name": "Random player not top",
+  	"Description": "Random player in threat list except top threat"
+  },
+  {
+  	"Id": 10,
+  	"Name": "Event sender",
+  	"Description": "Unit who sent an AIEvent that was received with EVENT_T_RECEIVE_AI_EVENT"
+  },
+  {
+  	"Id": 11,
+  	"Name": "Owner",
+  	"Description": "Owner of AI creature"
+  },
+  {
+  	"Id": 12,
+  	"Name": "Event specific",
+  	"Description": "Filled by corresponding event that triggered the action"
+  },
+  {
+  	"Id": 13,
+  	"Name": "Player invoker",
+  	"Description": "Player who initiated hostile contact with this npc"
+  },
+  {
+  	"Id": 14,
+  	"Name": "Player tapper",
+  	"Description": "Player who currently holds to score the kill credit from the npc"
+  },
+  {
+  	"Id": 15,
+  	"Name": "None",
+  	"Description": "Default - passes no target - useful for spells"
+  },
+  {
+  	"Id": 16,
+  	"Name": "Random with mana",
+  	"Description": "Random target in threatlist with mana"
+  },
+  {
+  	"Id": 17,
+  	"Name": "Nearest AOE target",
+  	"Description": "Nearest target for AOE - used to check whether anyone is in range for aoe"
+  },
+  {
+  	"Id": 18,
+  	"Name": "Farthest away",
+  	"Description": "Farthest target in threatlist from AI creature"
+  }
+}
