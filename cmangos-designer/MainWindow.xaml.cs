@@ -37,7 +37,7 @@ namespace cmangos_designer
 
             var windowNative = this.As<IWindowNative>();
             m_windowHandle = windowNative.WindowHandle;
-            SetWindowSize(m_windowHandle, 1300, 850);
+            SetWindowSize(m_windowHandle, 1300, 900);
         }
 
         private void SetWindowSize(IntPtr hwnd, int width, int height)

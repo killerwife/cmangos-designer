@@ -12,29 +12,37 @@
 
     <Grid Width="1200" Height="800" Background="#565656">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -50,7 +58,7 @@
         <TextBlock x:Name="textBlockCreatureId" Grid.Column="2" Grid.Row="0">Creature Id</TextBlock>
         <TextBox x:Name="textBoxCreatureId" Grid.Column="3" Grid.Row="0" Width="150"></TextBox>
         <ComboBox x:Name="ComboEventType" SelectionChanged="ComboEventType_SelectionChanged" Header="Event" ItemsSource="{x:Bind EventBinding, Mode=OneWay}"
-                            PlaceholderText="Pick an event" Width="300" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            PlaceholderText="Pick an event" Width="300" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTipService.ToolTip="{x:Bind EventDescriptionTooltip, Mode=OneWay}">
         </ComboBox>
         <TextBlock x:Name="textBlockInversePhaseMask" Grid.Column="2" Grid.Row="2">Inverse Phase Mask</TextBlock>
         <TextBox x:Name="textBoxInversePhaseMask" Grid.Column="3" Grid.Row="2" Width="150"></TextBox>
@@ -82,8 +90,8 @@
         <TextBlock x:Name="textBlockEventParam6" Grid.Column="0" Grid.Row="9" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind EventParam6Tooltip, Mode=OneWay}">Event Param6</TextBlock>
         <TextBox x:Name="textBoxEventParam6" Grid.Column="1" Grid.Row="9" Width="150"></TextBox>
         <!-- action 1 -->
-        <ComboBox x:Name="ComboAction1Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
-                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="10" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <ComboBox x:Name="ComboAction1Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Action1TypeTooltip, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="10" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
         </ComboBox>
         <TextBlock x:Name="textBlockAction1Param1" Grid.Column="2" Grid.Row="10" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action1Param1Tooltip, Mode=OneWay}">Param1</TextBlock>
         <TextBox x:Name="textBoxAction1Param1" Grid.Column="3" Grid.Row="10" Width="150"></TextBox>
@@ -92,8 +100,8 @@
         <TextBlock x:Name="textBlockAction1Param3" Grid.Column="2" Grid.Row="12" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action1Param3Tooltip, Mode=OneWay}">Param3</TextBlock>
         <TextBox x:Name="textBoxAction1Param3" Grid.Column="3" Grid.Row="12" Width="150"></TextBox>
         <!-- action 2 -->
-        <ComboBox x:Name="ComboAction2Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
-                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="13" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <ComboBox x:Name="ComboAction2Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Action2TypeTooltip, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="13" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
         </ComboBox>
         <TextBlock x:Name="textBlockAction2Param1" Grid.Column="2" Grid.Row="13" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action2Param1Tooltip, Mode=OneWay}">Param1</TextBlock>
         <TextBox x:Name="textBoxAction2Param1" Grid.Column="3" Grid.Row="13" Width="150"></TextBox>
@@ -102,8 +110,8 @@
         <TextBlock x:Name="textBlockAction2Param3" Grid.Column="2" Grid.Row="15" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action2Param3Tooltip, Mode=OneWay}">Param3</TextBlock>
         <TextBox x:Name="textBoxAction2Param3" Grid.Column="3" Grid.Row="15" Width="150"></TextBox>
         <!-- action 3 -->
-        <ComboBox x:Name="ComboAction3Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}"
-                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="16" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <ComboBox x:Name="ComboAction3Type" SelectionChanged="ComboAction1Type_SelectionChanged" Header="Action" ItemsSource="{x:Bind ActionBinding, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Action3TypeTooltip, Mode=OneWay}"
+                            PlaceholderText="Pick an action" Width="300" Grid.Column="0" Grid.Row="16" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
         </ComboBox>
         <TextBlock x:Name="textBlockAction3Param1" Grid.Column="2" Grid.Row="16" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind Action3Param1Tooltip, Mode=OneWay}">Param1</TextBlock>
         <TextBox x:Name="textBoxAction3Param1" Grid.Column="3" Grid.Row="16" Width="150"></TextBox>
@@ -113,9 +121,9 @@
         <TextBox x:Name="textBoxAction3Param3" Grid.Column="3" Grid.Row="18" Width="150"></TextBox>
         <!-- comment -->
         <TextBlock x:Name="textBlockComment" Grid.Column="0" Grid.Row="19">Comment</TextBlock>
-        <TextBox x:Name="textBoxComment" Grid.Column="1" Grid.Row="19" Width="150"></TextBox>
+        <TextBox x:Name="textBoxComment" Grid.Column="1" Grid.Row="19" Width="600" Grid.ColumnSpan="3"></TextBox>
 
-        <controls:DataGrid x:Name="dataGrid" Grid.Column="0" AlternatingRowBackground="SlateGray" SelectionChanged="dataGrid_SelectionChanged" IsReadOnly="true" Grid.Row="20" Height="240" Width="1000" Grid.ColumnSpan="10" RowHeight="40" Grid.RowSpan="10" Margin="0,0,0,0" Padding="0,0,0,0" CanUserResizeColumns="false" CanUserSortColumns="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{x:Bind EventAIScripts, Mode=OneWay}">
+        <controls:DataGrid x:Name="dataGrid" Grid.Column="0" AlternatingRowBackground="SlateGray" SelectionChanged="dataGrid_SelectionChanged" IsReadOnly="true" Grid.Row="20" Height="260" Width="1000" Grid.ColumnSpan="10" RowHeight="40" Grid.RowSpan="12" Margin="0,0,0,0" Padding="0,0,0,0" CanUserResizeColumns="false" CanUserSortColumns="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{x:Bind EventAIScripts, Mode=OneWay}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Id" MinWidth="100" Width="SizeToCells" Binding="{Binding Id}">
                     <controls:DataGridColumn.HeaderStyle>
@@ -124,14 +132,14 @@
                         </Style>
                     </controls:DataGridColumn.HeaderStyle>
                 </controls:DataGridTextColumn>
-                <controls:DataGridTextColumn Header="CreatureId" MinWidth="70" Width="SizeToCells" Binding="{Binding CreatureId}">
+                <controls:DataGridTextColumn Header="CreatureId" MinWidth="70" Width="SizeToCells" Binding="{Binding Creature_id}">
                     <controls:DataGridColumn.HeaderStyle>
                         <Style TargetType="primitives:DataGridColumnHeader">
                             <Setter Property="Margin" Value="0,0,0,0"/>
                         </Style>
                     </controls:DataGridColumn.HeaderStyle>
                 </controls:DataGridTextColumn>
-                <controls:DataGridTextColumn Header="Event" MinWidth="70" Width="SizeToCells" Binding="{Binding Event}"/>
+                <controls:DataGridTextColumn Header="Event" MinWidth="70" Width="SizeToCells" Binding="{Binding Event_type}"/>
                 <controls:DataGridTextColumn Header="Comment" MinWidth="1000" Width="SizeToCells" Binding="{Binding Comment}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
@@ -142,5 +150,8 @@
         <Button x:Name="buttonClear" Grid.Column="4" Grid.Row="9" Grid.RowSpan="2" Click="buttonClear_Click">Clear</Button>
         <Button x:Name="buttonClearAll" Grid.Column="4" Grid.Row="11" Grid.RowSpan="2" Click="buttonClearAll_Click">ClearAll</Button>
         <Button x:Name="buttonLoad" Grid.Column="4" Grid.Row="15" Grid.RowSpan="2"  Click="buttonLoad_Click"  ToolTipService.ToolTip="Takes Id from field and selected table">Load</Button>
+
+        <TextBlock x:Name="textBlockCastFlags" Grid.Column="5" Grid.Row="0"  ToolTipService.ToolTip="{x:Bind CastFlagsTooltip, Mode=OneWay}">CastFlagsHelp</TextBlock>
+        <TextBlock x:Name="textBlockTargets" Grid.Column="5" Grid.Row="2"  ToolTipService.ToolTip="{x:Bind TargetsTooltip, Mode=OneWay}">TargetsHelp</TextBlock>
     </Grid>
 </Page>

@@ -42,7 +42,7 @@
   {
   	"Id": 8,
   	"Name": "Random player",
-  	"Description": "Random player in threat list""
+  	"Description": "Random player in threat list"
   },
   {
   	"Id": 9,
@@ -94,4 +94,4 @@
   	"Name": "Farthest away",
   	"Description": "Farthest target in threatlist from AI creature"
   }
-}
+]

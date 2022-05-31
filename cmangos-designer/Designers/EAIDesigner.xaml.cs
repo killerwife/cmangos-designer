@@ -38,10 +38,19 @@ namespace cmangos_designer.Designers
         private List<EventAIActions> Actions { get; set; }
         private Dictionary<string, int> ActionsPairing { get; set; } = new Dictionary<string, int>();
 
+        public string CastFlags { get; set; }
+        public string Targets { get; set; }
+
         private EventAIScript? SelectedScript { get; set; } = null;
         private ObservableCollection<EventAIScript> EventAIScripts { get; set; } = new ObservableCollection<EventAIScript>();
 
         // tooltips
+        private string _eventDescriptionTooltip;
+        public string EventDescriptionTooltip
+        {
+            get { return _eventDescriptionTooltip; }
+            set { _eventDescriptionTooltip = value; OnPropertyChanged(); }
+        }
         private string _eventParam1Tooltip;
         public string EventParam1Tooltip
         {
@@ -79,6 +88,12 @@ namespace cmangos_designer.Designers
             set { _eventParam6Tooltip = value; OnPropertyChanged(); }
         }
 
+        private string _action1TypeTooltip;
+        public string Action1TypeTooltip
+        {
+            get { return _action1TypeTooltip; }
+            set { _action1TypeTooltip = value; OnPropertyChanged(); }
+        }
         private string _action1Param1Tooltip;
         public string Action1Param1Tooltip
         {
@@ -98,6 +113,12 @@ namespace cmangos_designer.Designers
             set { _action1Param3Tooltip = value; OnPropertyChanged(); }
         }
 
+        private string _action2TypeTooltip;
+        public string Action2TypeTooltip
+        {
+            get { return _action2TypeTooltip; }
+            set { _action2TypeTooltip = value; OnPropertyChanged(); }
+        }
         private string _action2Param1Tooltip;
         public string Action2Param1Tooltip
         {
@@ -117,6 +138,12 @@ namespace cmangos_designer.Designers
             set { _action2Param3Tooltip = value; OnPropertyChanged(); }
         }
 
+        private string _action3TypeTooltip;
+        public string Action3TypeTooltip
+        {
+            get { return _action3TypeTooltip; }
+            set { _action3TypeTooltip = value; OnPropertyChanged(); }
+        }
         private string _action3Param1Tooltip;
         public string Action3Param1Tooltip
         {
@@ -134,6 +161,19 @@ namespace cmangos_designer.Designers
         {
             get { return _action3Param3Tooltip; }
             set { _action3Param3Tooltip = value; OnPropertyChanged(); }
+        }
+
+        private string _castFlagsTooltip;
+        public string CastFlagsTooltip
+        {
+            get { return _castFlagsTooltip; }
+            set { _castFlagsTooltip = value; OnPropertyChanged(); }
+        }
+        private string _targetsTooltip;
+        public string TargetsTooltip
+        {
+            get { return _targetsTooltip; }
+            set { _targetsTooltip = value; OnPropertyChanged(); }
         }
 
         public EAIDesigner()
@@ -173,6 +213,22 @@ namespace cmangos_designer.Designers
                     ActionsPairing.Add(guiString, actionData.Id);
                 }
             }
+            {
+                string pathToFile = Directory.GetCurrentDirectory() + "\\" + "castFlags.json";
+                string jsonString = File.ReadAllText(pathToFile);
+                var castFlags = JsonSerializer.Deserialize<List<AICastFlags>>(jsonString).OrderBy(p => p.Flag).ToList();
+                foreach (var castFlag in castFlags)
+                    CastFlags += castFlag.Flag.ToString() + " - " + castFlag.Name.ToString() + " - " + castFlag.Description + "\n";
+                CastFlagsTooltip = CastFlags;
+            }
+            {
+                string pathToFile = Directory.GetCurrentDirectory() + "\\" + "eventAITargets.json";
+                string jsonString = File.ReadAllText(pathToFile);
+                var targets = JsonSerializer.Deserialize<List<EventAITargets>>(jsonString).OrderBy(p => p.Id).ToList();
+                foreach (var target in targets)
+                    Targets += target.Id.ToString() + " - " + target.Name.ToString() + " - " + target.Description + "\n";
+                TargetsTooltip = Targets;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -192,6 +248,7 @@ namespace cmangos_designer.Designers
                 textBoxEventParam4.Text = "";
                 textBoxEventParam5.Text = "";
                 textBoxEventParam6.Text = "";
+                EventDescriptionTooltip = "";
                 EventParam1Tooltip = "";
                 EventParam2Tooltip = "";
                 EventParam3Tooltip = "";
@@ -212,6 +269,7 @@ namespace cmangos_designer.Designers
             textBlockEventParam4.Text = scriptEvent.Param4;
             textBlockEventParam5.Text = scriptEvent.Param5;
             textBlockEventParam6.Text = scriptEvent.Param6;
+            EventDescriptionTooltip = scriptEvent.Description;
             EventParam1Tooltip = scriptEvent.Param1Tooltip;
             EventParam2Tooltip = scriptEvent.Param2Tooltip;
             EventParam3Tooltip = scriptEvent.Param3Tooltip;
@@ -235,6 +293,7 @@ namespace cmangos_designer.Designers
                     textBlockAction1Param1.Text = "";
                     textBlockAction1Param2.Text = "";
                     textBlockAction1Param3.Text = "";
+                    Action1TypeTooltip = "";
                     Action1Param1Tooltip = "";
                     Action1Param2Tooltip = "";
                     Action1Param3Tooltip = "";
@@ -244,6 +303,7 @@ namespace cmangos_designer.Designers
                     textBlockAction2Param1.Text = "";
                     textBlockAction2Param2.Text = "";
                     textBlockAction2Param3.Text = "";
+                    Action1TypeTooltip = "";
                     Action2Param1Tooltip = "";
                     Action2Param2Tooltip = "";
                     Action2Param3Tooltip = "";
@@ -253,6 +313,7 @@ namespace cmangos_designer.Designers
                     textBlockAction3Param1.Text = "";
                     textBlockAction3Param2.Text = "";
                     textBlockAction3Param3.Text = "";
+                    Action3TypeTooltip = "";
                     Action3Param1Tooltip = "";
                     Action3Param2Tooltip = "";
                     Action3Param3Tooltip = "";
@@ -270,6 +331,7 @@ namespace cmangos_designer.Designers
                 textBlockAction1Param1.Text = scriptAction.Param1;
                 textBlockAction1Param2.Text = scriptAction.Param2;
                 textBlockAction1Param3.Text = scriptAction.Param3;
+                Action1TypeTooltip = scriptAction.Description;
                 Action1Param1Tooltip = scriptAction.Param1Tooltip;
                 Action1Param2Tooltip = scriptAction.Param2Tooltip;
                 Action1Param3Tooltip = scriptAction.Param3Tooltip;
@@ -279,6 +341,7 @@ namespace cmangos_designer.Designers
                 textBlockAction2Param1.Text = scriptAction.Param1;
                 textBlockAction2Param2.Text = scriptAction.Param2;
                 textBlockAction2Param3.Text = scriptAction.Param3;
+                Action2TypeTooltip = scriptAction.Description;
                 Action2Param1Tooltip = scriptAction.Param1Tooltip;
                 Action2Param2Tooltip = scriptAction.Param2Tooltip;
                 Action2Param3Tooltip = scriptAction.Param3Tooltip;
@@ -288,6 +351,7 @@ namespace cmangos_designer.Designers
                 textBlockAction3Param1.Text = scriptAction.Param1;
                 textBlockAction3Param2.Text = scriptAction.Param2;
                 textBoxAction3Param3.Text = scriptAction.Param3;
+                Action3TypeTooltip = scriptAction.Description;
                 Action3Param1Tooltip = scriptAction.Param1Tooltip;
                 Action3Param2Tooltip = scriptAction.Param2Tooltip;
                 Action3Param3Tooltip = scriptAction.Param3Tooltip;
@@ -296,6 +360,12 @@ namespace cmangos_designer.Designers
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count == 0)
+            {
+                ClearTextBoxes();
+                return;
+            }
+
             SelectedScript = (EventAIScript)e.AddedItems[0];
             textBoxId.Text = SelectedScript.Id.ToString();
             textBoxCreatureId.Text = SelectedScript.Creature_id.ToString();
@@ -319,18 +389,27 @@ namespace cmangos_designer.Designers
             textBoxEventParam4.Text = SelectedScript.Event_param4.ToString();
             textBoxEventParam5.Text = SelectedScript.Event_param5.ToString();
             textBoxEventParam6.Text = SelectedScript.Event_param6.ToString();
-            ComboAction1Type.SelectedIndex = (int)SelectedScript.Action1_type - 1;
+            if (SelectedScript.Action1_type == 0)
+                ComboAction1Type.SelectedIndex = -1;
+            else
+                ComboAction1Type.SelectedIndex = (int)SelectedScript.Action1_type - 1;
             textBoxAction1Param1.Text = SelectedScript.Action1_param1.ToString();
             textBoxAction1Param2.Text = SelectedScript.Action1_param2.ToString();
-            textBoxAction1Param2.Text = SelectedScript.Action1_param3.ToString();
-            ComboAction2Type.SelectedIndex = (int)SelectedScript.Action2_type - 1;
+            textBoxAction1Param3.Text = SelectedScript.Action1_param3.ToString();
+            if (SelectedScript.Action2_type == 0)
+                ComboAction2Type.SelectedIndex = -1;
+            else
+                ComboAction2Type.SelectedIndex = (int)SelectedScript.Action2_type - 1;
             textBoxAction2Param1.Text = SelectedScript.Action2_param1.ToString();
             textBoxAction2Param2.Text = SelectedScript.Action2_param2.ToString();
-            textBoxAction2Param2.Text = SelectedScript.Action2_param3.ToString();
-            ComboAction2Type.SelectedIndex = (int)SelectedScript.Action3_type - 1;
+            textBoxAction2Param3.Text = SelectedScript.Action2_param3.ToString();
+            if (SelectedScript.Action3_type == 0)
+                ComboAction3Type.SelectedIndex = -1;
+            else
+                ComboAction3Type.SelectedIndex = (int)SelectedScript.Action3_type - 1;
             textBoxAction3Param1.Text = SelectedScript.Action3_param1.ToString();
             textBoxAction3Param2.Text = SelectedScript.Action3_param2.ToString();
-            textBoxAction3Param2.Text = SelectedScript.Action3_param3.ToString();
+            textBoxAction3Param3.Text = SelectedScript.Action3_param3.ToString();
             textBoxComment.Text = SelectedScript.Comment;
         }
 
@@ -344,12 +423,12 @@ namespace cmangos_designer.Designers
                     query += ",\n";
                 else
                     first = false;
-                query += "(";
-                query += script.Id + "," + script.Creature_id + "," + script.Event_type + "," + script.Event_inverse_phase_mask + "," + script.Event_chance + "," + script.Event_flags + ",";
-                query += script.Event_param1 + "," + script.Event_param2 + "," + script.Event_param3 + "," + script.Event_param4 + "," + script.Event_param5 + ",";
-                query += script.Event_param6 + "," + script.Action1_type + "," + script.Action1_param1 + "," + script.Action1_param2 + "," + script.Action1_param3 + ",";
-                query += script.Action2_type + "," + script.Action2_param1 + "," + script.Action2_param2 + "," + script.Action2_param3 + ",";
-                query += script.Action3_type + "," + script.Action3_param1 + "," + script.Action3_param2 + "," + script.Action3_param3 + ",'" + script.Comment + "'";
+                query += "('";
+                query += script.Id + "','" + script.Creature_id + "','" + script.Event_type + "','" + script.Event_inverse_phase_mask + "','" + script.Event_chance + "','" + script.Event_flags + "','";
+                query += script.Event_param1 + "','" + script.Event_param2 + "','" + script.Event_param3 + "','" + script.Event_param4 + "','" + script.Event_param5 + "','";
+                query += script.Event_param6 + "','" + script.Action1_type + "','" + script.Action1_param1 + "','" + script.Action1_param2 + "','" + script.Action1_param3 + "','";
+                query += script.Action2_type + "','" + script.Action2_param1 + "','" + script.Action2_param2 + "','" + script.Action2_param3 + "','";
+                query += script.Action3_type + "','" + script.Action3_param1 + "','" + script.Action3_param2 + "','" + script.Action3_param3 + "','" + script.Comment.Replace("'", "''") + "'";
                 query += ")";
             }
             query += ";";
@@ -427,6 +506,11 @@ namespace cmangos_designer.Designers
         }
 
         private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearTextBoxes();
+        }
+
+        private void ClearTextBoxes()
         {
             textBoxId.Text = "";
             textBoxCreatureId.Text = "";
