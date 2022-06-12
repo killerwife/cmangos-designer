@@ -26,7 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
     <Manifest Include="$(ApplicationManifest)" />
