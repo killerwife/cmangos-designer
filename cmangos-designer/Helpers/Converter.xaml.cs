@@ -31,6 +31,7 @@ namespace cmangos_designer.Helpers
         public ObservableCollection<string> SniffConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> TCToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> VmangosToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> TcParserToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
 
         private Timer timer;
 
@@ -49,6 +50,9 @@ namespace cmangos_designer.Helpers
             VmangosToCmangosConverterBinding.Add("creature");
             VmangosToCmangosConverterBinding.Add("gameobject");
             VmangosToCmangosConverterBinding.Add("creature_movement");
+
+            TcParserToCmangosConverterBinding.Add("creature");
+            TcParserToCmangosConverterBinding.Add("gameobject");
 
             sniffConverterComboBox.SelectedIndex = 0;
 
@@ -442,6 +446,162 @@ namespace cmangos_designer.Helpers
                 checkBoxVmangosParameter.Content = "PhaseMask";
             else
                 checkBoxVmangosParameter.Content = "";
+        }
+
+        private void buttonConvertTcParserToCmangos_Click(object sender, RoutedEventArgs e)
+        {
+            string[] lines = null;
+            lines = textBoxTcParserToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+            string output = "";
+            if (((string)comboBoxTcParserToCmangos.SelectedItem) == "creature")
+            {
+                var creatures = new List<Creature>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    if (cleanedLine[0] == '-' && cleanedLine[1] == '-' && cleanedLine[2] == ' ')
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var creature = new Creature();
+                    creature.Guid = int.Parse(split[0]);
+                    creature.Id = int.Parse(split[1]);
+                    creature.Map = int.Parse(split[2]);
+                    creature.SpawnMask = int.Parse(split[5]);
+                    creature.PhaseMask = int.Parse(split[6]);
+                    creature.PositionX = float.Parse(split[9], CultureInfo.InvariantCulture);
+                    creature.PositionY = float.Parse(split[10], CultureInfo.InvariantCulture);
+                    creature.PositionZ = float.Parse(split[11], CultureInfo.InvariantCulture);
+                    creature.Orientation = float.Parse(split[12], CultureInfo.InvariantCulture);
+                    creature.SpawnTimeSecsMin = 600;
+                    creature.SpawnTimeSecsMax = 600;
+                    creature.SpawnDist = float.Parse(split[14], CultureInfo.InvariantCulture);
+                    creature.MovementType = int.Parse(split[18]);
+                    creatures.Add(creature);
+                }
+
+                bool isPhaseMask = false;
+                output = "INSERT INTO creature(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, spawntimesecsmin, spawntimesecsmax, spawndist, MovementType) VALUES\n";
+                bool first = true;
+                foreach (var creature in creatures)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += creature.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+            }
+            else if (((string)comboBoxTcParserToCmangos.SelectedItem) == "gameobject")
+            {
+                int entry = int.Parse(textBoxTcParserToCmangosEntry.Text);
+                int i = int.Parse(textBoxTcParserToCmangosNumber.Text);
+                var gameObjects = new List<GameObjectParser>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    if (cleanedLine[0] == '-' && cleanedLine[1] == '-' && cleanedLine[2] == ' ')
+                        continue;
+
+                    if (cleanedLine[0] != '@')
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var gameObject = new GameObjectParser();
+                    gameObject.Guid = "@GGUID+" + i;
+                    gameObject.Id = int.Parse(split[1]);
+                    if (gameObject.Id != entry)
+                        continue;
+                    gameObject.Map = int.Parse(split[2]);
+                    gameObject.SpawnMask = int.Parse(split[5]);
+                    gameObject.PositionX = split[6];
+                    gameObject.PositionY = split[7];
+                    gameObject.PositionZ = split[8];
+                    gameObject.Orientation = split[9];
+                    gameObject.Rotation0 = split[10];
+                    gameObject.Rotation1 = split[11];
+                    gameObject.Rotation2 = split[12];
+                    gameObject.Rotation3 = split[13];
+                    gameObject.SpawnTimeSecsMin = 600;
+                    gameObject.SpawnTimeSecsMax = 600;
+                    gameObjects.Add(gameObject);
+
+                    ++i;
+                }
+
+                bool isPhaseMask = false;
+                output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
+                bool first = true;
+                foreach (var gameObject in gameObjects)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += gameObject.GenerateSQL(isPhaseMask);
+                }
+
+                output += ";";
+            }
+            else if (((string)comboBoxTcParserToCmangos.SelectedItem) == "waypoint")
+            {
+                var waypointPath = new List<WaypointPath>();
+                foreach (var line in lines)
+                {
+                    var cleanedLine = CleanLine(line);
+                    if (cleanedLine.Length == 0)
+                        continue;
+
+                    if (cleanedLine[0] == '-' && cleanedLine[1] == '-' && cleanedLine[2] == ' ')
+                        continue;
+
+                    var split = cleanedLine.Split(',');
+                    var waypoints = new WaypointPath();
+                    waypoints.PathId = int.Parse(split[0]);
+                    waypoints.Point = int.Parse(split[1]);
+                    waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
+                    waypoints.PositionY = float.Parse(split[3], CultureInfo.InvariantCulture);
+                    waypoints.PositionZ = float.Parse(split[4], CultureInfo.InvariantCulture);
+                    waypoints.Orientation = float.Parse(split[5], CultureInfo.InvariantCulture);
+                    if (waypoints.Orientation == 0)
+                        waypoints.Orientation = 100;
+                    waypoints.WaitTime = int.Parse(split[6]);
+                    waypoints.ScriptId = 0;
+                    waypoints.Comment = split[7];
+                    waypointPath.Add(waypoints);
+                }
+
+                output = "INSERT INTO waypoint_path(PathId, Point, PositionX, PositionY, PositionZ, Orientation, WaitTime, ScriptId, Comment) VALUES\n";
+                bool first = true;
+                foreach (var waypoints in waypointPath)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        output += ",\n";
+                    output += waypoints.GenerateSQL();
+                }
+
+                output += ";";
+            }
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private void comboBoxTcParserToCmangos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
