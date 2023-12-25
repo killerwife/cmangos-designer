@@ -16,7 +16,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Popups;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -448,7 +450,20 @@ namespace cmangos_designer.Helpers
                 checkBoxVmangosParameter.Content = "";
         }
 
-        private void buttonConvertTcParserToCmangos_Click(object sender, RoutedEventArgs e)
+        private async Task showWrongDataFilledDialog(string message)
+        {
+            ContentDialog dialog = new()
+            {
+                Title = "Warning",
+                Content = message,
+                PrimaryButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+
+            var result = await dialog.ShowAsync();
+        }
+
+        private async void buttonConvertTcParserToCmangos_Click(object sender, RoutedEventArgs e)
         {
             string[] lines = null;
             lines = textBoxTcParserToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
@@ -499,8 +514,20 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxTcParserToCmangos.SelectedItem) == "gameobject")
             {
-                int entry = int.Parse(textBoxTcParserToCmangosEntry.Text);
-                int i = int.Parse(textBoxTcParserToCmangosNumber.Text);
+                int entry;
+                bool success = int.TryParse(textBoxTcParserToCmangosEntry.Text, out entry);
+                if (!success)
+                {
+                    await showWrongDataFilledDialog("Could not parse entry");
+                    return;
+                }
+                int startingIndex;
+                success = int.TryParse(textBoxTcParserToCmangosNumber.Text, out startingIndex);
+                if (!success)
+                {
+                    await showWrongDataFilledDialog("Could not parse starting index");
+                    return;
+                }
                 var gameObjects = new List<GameObjectParser>();
                 foreach (var line in lines)
                 {
@@ -516,7 +543,7 @@ namespace cmangos_designer.Helpers
 
                     var split = cleanedLine.Split(',');
                     var gameObject = new GameObjectParser();
-                    gameObject.Guid = "@GGUID+" + i;
+                    gameObject.Guid = "@GGUID+" + startingIndex;
                     gameObject.Id = int.Parse(split[1]);
                     if (gameObject.Id != entry)
                         continue;
@@ -534,11 +561,12 @@ namespace cmangos_designer.Helpers
                     gameObject.SpawnTimeSecsMax = 600;
                     gameObjects.Add(gameObject);
 
-                    ++i;
+                    ++startingIndex;
                 }
 
                 bool isPhaseMask = false;
-                output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
+                if (checkBoxTcParserParameter.IsChecked == false)
+                    output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
                 bool first = true;
                 foreach (var gameObject in gameObjects)
                 {
@@ -549,7 +577,10 @@ namespace cmangos_designer.Helpers
                     output += gameObject.GenerateSQL(isPhaseMask);
                 }
 
-                output += ";";
+                if (checkBoxTcParserParameter.IsChecked == false)
+                    output += ";";
+                else
+                    output += ",";
             }
             else if (((string)comboBoxTcParserToCmangos.SelectedItem) == "waypoint")
             {
@@ -591,6 +622,11 @@ namespace cmangos_designer.Helpers
                 }
 
                 output += ";";
+            }
+            else
+            {
+                await showWrongDataFilledDialog("No table was selected");
+                return;
             }
 
             DataPackage dataPackage = new DataPackage();
