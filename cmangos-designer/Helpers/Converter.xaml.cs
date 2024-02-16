@@ -18,7 +18,10 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage.Pickers;
+using Windows.Storage;
 using Windows.UI.Popups;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -467,6 +470,26 @@ namespace cmangos_designer.Helpers
         {
             string[] lines = null;
             lines = textBoxTcParserToCmangos.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+            if (lines.Length == 1)
+            {
+                FileOpenPicker fileOpenPicker = new()
+                {
+                    ViewMode = PickerViewMode.Thumbnail,
+                    FileTypeFilter = { ".sql" },
+                };
+
+                var window = (Application.Current as App)?.m_window as MainWindow;
+                nint windowHandle = WindowNative.GetWindowHandle(window);
+                InitializeWithWindow.Initialize(fileOpenPicker, windowHandle);
+
+                StorageFile file = await fileOpenPicker.PickSingleFileAsync();
+
+                if (file != null)
+                {
+                    string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+                    lines = text.Split(new char[] { '\n' });
+                }
+            }
             string output = "";
             if (((string)comboBoxTcParserToCmangos.SelectedItem) == "creature")
             {
