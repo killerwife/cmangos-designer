@@ -344,6 +344,8 @@ namespace cmangos_designer.Helpers
                 bool isPhaseMask = false;
                 if (checkBoxFirstLine.IsChecked == true)
                     output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
+                else
+                    output = ",\n";
                 bool first = true;
                 foreach (var gameObject in gameObjects)
                 {
@@ -354,10 +356,7 @@ namespace cmangos_designer.Helpers
                     output += gameObject.GenerateSQL(isPhaseMask);
                 }
 
-                if (checkBoxFirstLine.IsChecked == true)
-                    output += ";";
-                else
-                    output += ",";
+                output += ";";
             }
 
             DataPackage dataPackage = new DataPackage();
