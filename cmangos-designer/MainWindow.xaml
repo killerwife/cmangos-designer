@@ -25,6 +25,7 @@
                     <MenuBarItem x:Name="menuBarHelpers" Title="Helpers">
                         <MenuBarItem.Items>
                             <MenuFlyoutItem Text="Converters" Click="buttonConverters_Click"/>
+                            <MenuFlyoutItem Text="OreHelper" Click="buttonOreHelper_Click"/>
                         </MenuBarItem.Items>
                     </MenuBarItem>
                     <MenuBarItem x:Name="menuBarHelp" Title="Help">

@@ -37,7 +37,7 @@ namespace cmangos_designer
 
             var windowNative = this.As<IWindowNative>();
             m_windowHandle = windowNative.WindowHandle;
-            SetWindowSize(m_windowHandle, 1300, 900);
+            SetWindowSize(m_windowHandle, 1300, 1000);
         }
 
         private void SetWindowSize(IntPtr hwnd, int width, int height)
@@ -80,6 +80,11 @@ namespace cmangos_designer
         private void buttonConverters_Click(object sender, RoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(Converter));
+        }
+
+        private void buttonOreHelper_Click(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(OreHelper));
         }
     }
 }

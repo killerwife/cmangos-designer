@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="cmangos_designer.Helpers.OreHelper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:cmangos_designer.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Width="1000" Height="880">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="textBoxChosenFile" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="10" PlaceholderText="ChosenFile" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonPickFile" Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Click="buttonPickFile_Click">Pick File</Button>
+        <TextBox x:Name="textBoxMapId" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" PlaceholderText="Map Id" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <CheckBox x:Name="checkBoxFirstLine" Grid.Column="1" Grid.Row="1">First Line</CheckBox>
+
+        <TextBox x:Name="textBoxEntries0"                                            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber0"                                             Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard0" Click="buttonCopyToClipboard0_Click" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries1"                                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber1"                                             Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard1" Click="buttonCopyToClipboard1_Click" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries2"                                            Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber2"                                             Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard2" Click="buttonCopyToClipboard2_Click" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries3"                                            Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber3"                                             Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard3" Click="buttonCopyToClipboard3_Click" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries4"                                            Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber4"                                             Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard4" Click="buttonCopyToClipboard4_Click" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries5"                                            Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber5"                                             Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard5" Click="buttonCopyToClipboard5_Click" Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries6"                                            Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber6"                                             Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard6" Click="buttonCopyToClipboard6_Click" Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries7"                                            Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber7"                                             Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard7" Click="buttonCopyToClipboard7_Click" Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries8"                                            Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber8"                                             Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard8" Click="buttonCopyToClipboard8_Click" Grid.Row="11" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries9"                                            Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber9"                                             Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard9" Click="buttonCopyToClipboard9_Click" Grid.Row="12" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries10"                                            Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber10"                                             Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard10" Click="buttonCopyToClipboard10_Click" Grid.Row="13" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries11"                                            Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber11"                                             Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard11" Click="buttonCopyToClipboard11_Click" Grid.Row="14" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries12"                                            Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber12"                                             Grid.Row="15" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard12" Click="buttonCopyToClipboard12_Click" Grid.Row="15" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries13"                                            Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber13"                                             Grid.Row="16" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard13" Click="buttonCopyToClipboard13_Click" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries14"                                            Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber14"                                             Grid.Row="17" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard14" Click="buttonCopyToClipboard14_Click" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries15"                                            Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber15"                                             Grid.Row="18" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard15" Click="buttonCopyToClipboard15_Click" Grid.Row="18" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries16"                                            Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber16"                                             Grid.Row="19" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard16" Click="buttonCopyToClipboard16_Click" Grid.Row="19" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries17"                                            Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber17"                                             Grid.Row="20" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard17" Click="buttonCopyToClipboard17_Click" Grid.Row="20" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries18"                                            Grid.Row="21" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber18"                                             Grid.Row="21" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard18" Click="buttonCopyToClipboard18_Click" Grid.Row="21" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries19"                                            Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber19"                                             Grid.Row="22" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard19" Click="buttonCopyToClipboard19_Click" Grid.Row="22" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+
+        <TextBox x:Name="textBoxEntries20"                                            Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="3" PlaceholderText="Entry" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <TextBox x:Name="textBoxNumber20"                                             Grid.Row="23" Grid.Column="3" Grid.ColumnSpan="1" PlaceholderText="Index" AcceptsReturn="True" TextWrapping="Wrap" Margin="0"/>
+        <Button x:Name="buttonCopyToClipboard20" Click="buttonCopyToClipboard20_Click" Grid.Row="23" Grid.Column="4" Grid.ColumnSpan="1">Clipboard</Button>
+    </Grid>
+</Page>
