@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Extensions.Logging;
+using Windows.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -127,7 +128,30 @@ namespace cmangos_designer.Helpers
             StorageFile file = await fileOpenPicker.PickSingleFileAsync();
 
             if (file != null)
+            {
                 textBoxChosenFile.Text = file.Path;
+                await ChangeColorIfHasData(buttonCopyToClipboard0, textBoxEntries0.Text, textBoxNumber0.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard1, textBoxEntries1.Text, textBoxNumber1.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard2, textBoxEntries2.Text, textBoxNumber2.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard3, textBoxEntries3.Text, textBoxNumber3.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard4, textBoxEntries4.Text, textBoxNumber4.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard5, textBoxEntries5.Text, textBoxNumber5.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard6, textBoxEntries6.Text, textBoxNumber6.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard7, textBoxEntries7.Text, textBoxNumber7.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard8, textBoxEntries8.Text, textBoxNumber8.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard9, textBoxEntries9.Text, textBoxNumber9.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard10, textBoxEntries10.Text, textBoxNumber10.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard11, textBoxEntries11.Text, textBoxNumber11.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard12, textBoxEntries12.Text, textBoxNumber12.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard13, textBoxEntries13.Text, textBoxNumber13.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard14, textBoxEntries14.Text, textBoxNumber14.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard15, textBoxEntries15.Text, textBoxNumber15.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard16, textBoxEntries16.Text, textBoxNumber16.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard17, textBoxEntries17.Text, textBoxNumber17.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard18, textBoxEntries18.Text, textBoxNumber18.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard19, textBoxEntries19.Text, textBoxNumber19.Text);
+                await ChangeColorIfHasData(buttonCopyToClipboard20, textBoxEntries20.Text, textBoxNumber20.Text);
+            }
         }
 
         private async Task showWrongDataFilledDialog(string message)
@@ -260,22 +284,52 @@ namespace cmangos_designer.Helpers
 
         private async void processButtonClick(string entriesText, string indexText)
         {
+            string output = await ProcessData(entriesText, indexText, true);
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+
+            saveFile();
+        }
+
+        private async Task ChangeColorIfHasData(Button button, string entriesText, string indexText)
+        {
+            if (await HasData(entriesText, indexText))
+                button.Background = new SolidColorBrush(Color.FromArgb(255, 79, 121, 66));
+            else
+                button.Background = new SolidColorBrush(Color.FromArgb(255, 136, 8, 8));
+        }
+
+        private async Task<bool> HasData(string entriesText, string indexText)
+        {
+            var output = await ProcessData(entriesText, indexText, false);
+            if (output == null)
+                return false;
+            return output.Length > 2;
+        }
+
+        private async Task<string?> ProcessData(string entriesText, string indexText, bool errors)
+        {
             string output = "";
             string[] lines = null;
             bool success;
 
             if (!System.IO.File.Exists(textBoxChosenFile.Text))
             {
-                await showWrongDataFilledDialog("File does not exist");
-                return;
+                if (errors)
+                    await showWrongDataFilledDialog("File does not exist");
+                return null;
             }
 
             int mapId = 0;
             success = int.TryParse(textBoxMapId.Text, out mapId);
             if (!success)
             {
-                await showWrongDataFilledDialog("Couldnt parse mapId");
-                return;
+                if (errors)
+                    await showWrongDataFilledDialog("Couldnt parse mapId");
+                return null;
             }
 
             string text = System.IO.File.ReadAllText(textBoxChosenFile.Text);
@@ -289,8 +343,9 @@ namespace cmangos_designer.Helpers
                     success = int.TryParse(entryText, out int entry);
                     if (!success)
                     {
-                        await showWrongDataFilledDialog("Entries are wrongly formatted");
-                        return;
+                        if (errors)
+                            await showWrongDataFilledDialog("Entries are wrongly formatted");
+                        return null;
                     }
                     entries.Add(entry);
                 }
@@ -299,8 +354,9 @@ namespace cmangos_designer.Helpers
                 success = int.TryParse(indexText, out startingIndex);
                 if (!success)
                 {
-                    await showWrongDataFilledDialog("Could not parse starting index");
-                    return;
+                    if (errors)
+                        await showWrongDataFilledDialog("Could not parse starting index");
+                    return null;
                 }
                 var gameObjects = new List<GameObjectParser>();
                 foreach (var line in lines)
@@ -342,10 +398,13 @@ namespace cmangos_designer.Helpers
                 }
 
                 bool isPhaseMask = false;
-                if (checkBoxFirstLine.IsChecked == true)
-                    output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
-                else
-                    output = ",\n";
+                if (gameObjects.Count() > 0)
+                {
+                    if (checkBoxFirstLine.IsChecked == true)
+                        output = "INSERT INTO gameobject(guid, id, map, spawnMask" + (isPhaseMask ? ", phaseMask" : "") + ", position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecsmin, spawntimesecsmax) VALUES\n";
+                    else
+                        output = ",\n";
+                }
                 bool first = true;
                 foreach (var gameObject in gameObjects)
                 {
@@ -359,12 +418,7 @@ namespace cmangos_designer.Helpers
                 output += ";";
             }
 
-            DataPackage dataPackage = new DataPackage();
-            dataPackage.RequestedOperation = DataPackageOperation.Copy;
-            dataPackage.SetText(output);
-            Clipboard.SetContent(dataPackage);
-
-            saveFile();
+            return output;
         }
     }
 }

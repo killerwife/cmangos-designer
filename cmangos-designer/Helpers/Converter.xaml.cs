@@ -37,6 +37,7 @@ namespace cmangos_designer.Helpers
         public ObservableCollection<string> TCToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> VmangosToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> TcParserToCmangosConverterBinding { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> DeduplicatorBinding { get; set; } = new ObservableCollection<string>();
 
         private Timer timer;
 
@@ -58,6 +59,9 @@ namespace cmangos_designer.Helpers
 
             TcParserToCmangosConverterBinding.Add("creature");
             TcParserToCmangosConverterBinding.Add("gameobject");
+
+            DeduplicatorBinding.Add("creature");
+            DeduplicatorBinding.Add("gameobject");
 
             sniffConverterComboBox.SelectedIndex = 0;
 
@@ -658,7 +662,49 @@ namespace cmangos_designer.Helpers
             Clipboard.SetContent(dataPackage);
         }
 
+        private void buttonDeduplicate_Click(object sender, RoutedEventArgs e)
+        {
+            string[] lines = null;
+            lines = textBoxDeduplicator.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+
+            string output = "";
+
+            List<(float position_x, float position_y, float position_z)> gos = new();
+
+            int i = 0;
+            foreach (var line in lines)
+            {
+                var lineSplit = line.Split(',');
+                if (lineSplit.Count() < 10)
+                    continue;
+
+                float x = float.Parse(lineSplit[4], CultureInfo.InvariantCulture);
+                float y = float.Parse(lineSplit[5], CultureInfo.InvariantCulture);
+                float z = float.Parse(lineSplit[6], CultureInfo.InvariantCulture);
+
+                if (gos.Any(p => p.position_x == x && p.position_y == y && p.position_z == z))
+                    continue;
+
+                gos.Add((x,y,z));
+
+                lineSplit[0] = "(@GGUID+" + i;
+                ++i;
+
+                output += string.Join(',', lineSplit) + '\n';
+            }
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+        }
+
         private void comboBoxTcParserToCmangos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void comboBoxDeduplicate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
