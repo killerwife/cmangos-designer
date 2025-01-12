@@ -708,5 +708,52 @@ namespace cmangos_designer.Helpers
         {
 
         }
+
+        enum RenumberType
+        {
+            MovementOrPath,
+            Template,
+        }
+
+        private async void buttonRenumber_Click(object sender, RoutedEventArgs e)
+        {
+            string[] lines = null;
+            lines = textBoxRenumber.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
+
+            string output = "";
+
+            List<(float position_x, float position_y, float position_z)> gos = new();
+
+            int lineCount = 9;
+            RenumberType type = RenumberType.MovementOrPath;
+            if (textBoxRenumber.Text.Contains("creature_movement_template"))
+            {
+                type = RenumberType.Template;
+                lineCount = 10;
+            }
+            int i = 1;
+            foreach (var line in lines)
+            {
+                var lineSplit = line.Split(',');
+                if (lineSplit.Count() < lineCount || line.Contains("INTO") || line.Contains("VALUES"))
+                {
+                    output += string.Join(',', lineSplit) + '\n';
+                    continue;
+                }
+
+                if (type == RenumberType.MovementOrPath)
+                    lineSplit[1] = " '" + i + "'";
+                else
+                    lineSplit[2] = " '" + i + "'";
+                ++i;
+
+                output += string.Join(',', lineSplit) + '\n';
+            }
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+        }
     }
 }
