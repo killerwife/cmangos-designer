@@ -323,13 +323,18 @@ namespace cmangos_designer.Helpers
                 return null;
             }
 
-            int mapId = 0;
-            success = int.TryParse(textBoxMapId.Text, out mapId);
-            if (!success)
+            List<int> mapId = new List<int>();
+            var mapsplit = textBoxMapId.Text.Split(',');
+            foreach (var segment in mapsplit)
             {
-                if (errors)
-                    await showWrongDataFilledDialog("Couldnt parse mapId");
-                return null;
+                success = int.TryParse(segment, out int map);
+                if (!success)
+                {
+                    if (errors)
+                        await showWrongDataFilledDialog("Couldnt parse mapId");
+                    return null;
+                }
+                mapId.Add(map);
             }
 
             string text = System.IO.File.ReadAllText(textBoxChosenFile.Text);
@@ -375,11 +380,11 @@ namespace cmangos_designer.Helpers
                     var gameObject = new GameObjectParser();
                     gameObject.Guid = "@GGUID+" + startingIndex;
                     var id = int.Parse(split[1]);
-                    gameObject.Id = entries.Count > 1 ? 0 : id;
+                    gameObject.Id = id;
                     if (!entries.Contains(id))
                         continue;
                     gameObject.Map = int.Parse(split[2]);
-                    if (mapId != -1 && gameObject.Map != mapId)
+                    if (!mapId.Contains(gameObject.Map))
                         continue;
                     gameObject.SpawnMask = int.Parse(split[5]);
                     gameObject.PositionX = split[6];
