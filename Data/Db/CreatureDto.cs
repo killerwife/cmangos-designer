@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Db
 {
-    public class Creature
+    public class CreatureDto
     {
         public int Guid { get; set; }
         public int Id { get; set; }

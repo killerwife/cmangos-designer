@@ -554,7 +554,7 @@ namespace cmangos_designer.Designers
                 return;
 
             var container = ((App)App.Current).Container;
-            var mysql = (Mysql)container.GetService(typeof(Mysql));
+            var mysql = (WorldDbContext)container.GetService(typeof(WorldDbContext));
             Dbscripts.Clear();
             uint Id = uint.TryParse(textBoxId.Text, out uint u) ? u : 0;
             var results = mysql.Dbscripts.FromSqlRaw("SELECT * FROM " + SelectedTable + " WHERE Id ='" + Id.ToString() + "'").ToList();

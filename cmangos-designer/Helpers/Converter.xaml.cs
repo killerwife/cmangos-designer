@@ -162,7 +162,7 @@ namespace cmangos_designer.Helpers
             string output = "";
             if (((string)comboBoxTCToCmangos.SelectedItem) == "creature")
             {
-                var creatures = new List<Creature>();
+                var creatures = new List<CreatureDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -170,7 +170,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var creature = new Creature();
+                    var creature = new CreatureDto();
                     creature.Guid = int.Parse(split[0]);
                     creature.Id = int.Parse(split[1]);
                     creature.Map = int.Parse(split[2]);
@@ -203,7 +203,7 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "gameobject")
             {
-                var gameObjects = new List<GameObject>();
+                var gameObjects = new List<GameObjectDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -211,7 +211,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var gameObject = new GameObject();
+                    var gameObject = new GameObjectDto();
                     gameObject.Guid = int.Parse(split[0]);
                     gameObject.Id = int.Parse(split[1]);
                     gameObject.Map = int.Parse(split[2]);
@@ -248,7 +248,7 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxTCToCmangos.SelectedItem) == "waypoint")
             {
-                var waypointPath = new List<WaypointPath>();
+                var waypointPath = new List<WaypointPathDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -256,7 +256,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var waypoints = new WaypointPath();
+                    var waypoints = new WaypointPathDto();
                     waypoints.PathId = int.Parse(split[0]);
                     waypoints.Point = int.Parse(split[1]);
                     waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
@@ -316,7 +316,7 @@ namespace cmangos_designer.Helpers
             string output = "";
             if (((string)comboBoxVmangosToCmangos.SelectedItem) == "creature")
             {
-                var creatures = new List<Creature>();
+                var creatures = new List<CreatureDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -324,7 +324,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var creature = new Creature();
+                    var creature = new CreatureDto();
                     creature.Guid = int.Parse(split[0]);
                     creature.Id = int.Parse(split[1]);
                     creature.Map = int.Parse(split[5]);
@@ -357,7 +357,7 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxVmangosToCmangos.SelectedItem) == "gameobject")
             {
-                var gameObjects = new List<GameObject>();
+                var gameObjects = new List<GameObjectDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -365,7 +365,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var gameObject = new GameObject();
+                    var gameObject = new GameObjectDto();
                     gameObject.Guid = int.Parse(split[0]);
                     gameObject.Id = int.Parse(split[1]);
                     gameObject.Map = int.Parse(split[2]);
@@ -402,7 +402,7 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxVmangosToCmangos.SelectedItem) == "creature_movement")
             {
-                var waypointPath = new List<WaypointPath>();
+                var waypointPath = new List<WaypointPathDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -410,7 +410,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var waypoints = new WaypointPath();
+                    var waypoints = new WaypointPathDto();
                     waypoints.PathId = int.Parse(split[0]);
                     waypoints.Point = int.Parse(split[1]);
                     waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
@@ -497,7 +497,7 @@ namespace cmangos_designer.Helpers
             string output = "";
             if (((string)comboBoxTcParserToCmangos.SelectedItem) == "creature")
             {
-                var creatures = new List<Creature>();
+                var creatures = new List<CreatureDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -508,7 +508,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var creature = new Creature();
+                    var creature = new CreatureDto();
                     creature.Guid = int.Parse(split[0]);
                     creature.Id = int.Parse(split[1]);
                     creature.Map = int.Parse(split[2]);
@@ -611,7 +611,7 @@ namespace cmangos_designer.Helpers
             }
             else if (((string)comboBoxTcParserToCmangos.SelectedItem) == "waypoint")
             {
-                var waypointPath = new List<WaypointPath>();
+                var waypointPath = new List<WaypointPathDto>();
                 foreach (var line in lines)
                 {
                     var cleanedLine = CleanLine(line);
@@ -622,7 +622,7 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     var split = cleanedLine.Split(',');
-                    var waypoints = new WaypointPath();
+                    var waypoints = new WaypointPathDto();
                     waypoints.PathId = int.Parse(split[0]);
                     waypoints.Point = int.Parse(split[1]);
                     waypoints.PositionX = float.Parse(split[2], CultureInfo.InvariantCulture);
@@ -667,6 +667,8 @@ namespace cmangos_designer.Helpers
             string[] lines = null;
             lines = textBoxDeduplicator.Text.Split(new char[] { '\r' }); // why the fuck textbox in winui 3 uses \r line separator is beyond me
 
+            var deduplicatorIds = textBoxDeduplicatorIds.Text.Split(new char[] { ',' });
+
             string output = "";
 
             List<(float position_x, float position_y, float position_z)> gos = new();
@@ -678,6 +680,12 @@ namespace cmangos_designer.Helpers
                 if (lineSplit.Count() < 10)
                     continue;
 
+                if (deduplicatorIds.Length > 0)
+                {
+                    if (deduplicatorIds.Contains(lineSplit[0].Substring(1)))
+                        continue;
+                }
+
                 float x = float.Parse(lineSplit[4], CultureInfo.InvariantCulture);
                 float y = float.Parse(lineSplit[5], CultureInfo.InvariantCulture);
                 float z = float.Parse(lineSplit[6], CultureInfo.InvariantCulture);
@@ -687,7 +695,8 @@ namespace cmangos_designer.Helpers
 
                 gos.Add((x,y,z));
 
-                lineSplit[0] = "(@GGUID+" + i;
+                lineSplit[1] = "0";
+                // lineSplit[0] = "(@GGUID+" + i;
                 ++i;
 
                 output += string.Join(',', lineSplit) + '\n';

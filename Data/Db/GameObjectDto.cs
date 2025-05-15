@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Db
 {
-    public class GameObject
+    public class GameObjectDto
     {
         public int Guid { get; set; }
         public int Id { get; set; }

@@ -49,7 +49,7 @@ namespace cmangos_designer
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton<DatabaseConfig>(m_configurationRoot.GetSection("DbConfig:TbcConfig").Get<Config.DatabaseConfig>());
-            serviceCollection.AddScoped<Mysql, Mysql>();
+            serviceCollection.AddDbContext<WorldDbContext>();
 
             Container = serviceCollection.BuildServiceProvider();
 

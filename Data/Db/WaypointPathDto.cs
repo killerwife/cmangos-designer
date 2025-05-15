@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Db
 {
-    public class WaypointPath
+    public class WaypointPathDto
     {
         public int PathId { get; set; }
         public int Point { get; set; }

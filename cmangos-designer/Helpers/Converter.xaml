@@ -82,7 +82,8 @@
         <ComboBox x:Name="comboBoxDeduplicator" Header="Table" ItemsSource="{x:Bind DeduplicatorBinding, Mode=OneWay}"
                             PlaceholderText="Pick a table" Grid.Column="0" Grid.Row="17" Grid.RowSpan="5" Grid.ColumnSpan="5" SelectionChanged="comboBoxDeduplicate_SelectionChanged"/>
         <CheckBox x:Name="checkBoxDeduplicator" Grid.Column="0" Grid.Row="19">Parameter</CheckBox>
-        <Button x:Name="buttonConvertDeduplicator" Grid.Column="0" Grid.Row="20" Grid.RowSpan="2" Click="buttonDeduplicate_Click">Deduplicate to clipboard</Button>
+        <TextBox x:Name="textBoxDeduplicatorIds" Grid.Column="0" Grid.Row="20" Grid.RowSpan="1" PlaceholderText="Ids for removal - optional" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
+        <Button x:Name="buttonConvertDeduplicator" Grid.Column="0" Grid.Row="21" Grid.RowSpan="2" Click="buttonDeduplicate_Click">Deduplicate to clipboard</Button>
 
         <!-- waypoint renumbering section -->
         <TextBlock x:Name="textBlockRenumber" Grid.Column="1" Grid.Row="12">Renumber wps</TextBlock>

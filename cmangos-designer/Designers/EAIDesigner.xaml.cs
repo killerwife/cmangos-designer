@@ -556,7 +556,7 @@ namespace cmangos_designer.Designers
         private void buttonLoad_Click(object sender, RoutedEventArgs e)
         {
             var container = ((App)App.Current).Container;
-            var mysql = (Mysql)container.GetService(typeof(Mysql));
+            var mysql = (WorldDbContext)container.GetService(typeof(WorldDbContext));
             EventAIScripts.Clear();
             uint creatureId = uint.TryParse(textBoxCreatureId.Text, out uint u) ? u : 0;
             foreach (var script in mysql.EventAIScripts.Where(p => p.Creature_id == creatureId).ToList())

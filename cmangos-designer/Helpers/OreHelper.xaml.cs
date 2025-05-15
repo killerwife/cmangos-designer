@@ -22,6 +22,8 @@ using static System.Net.Mime.MediaTypeNames;
 using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Extensions.Logging;
 using Windows.UI;
+using Repository;
+using Microsoft.EntityFrameworkCore;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,10 +35,15 @@ namespace cmangos_designer.Helpers
     /// </summary>
     public sealed partial class OreHelper : Page
     {
+        private WorldDbContext _dbContext;
+
         public OreHelper()
         {
             this.InitializeComponent();
             readFile();
+
+            var container = ((App)App.Current).Container;
+            _dbContext = (WorldDbContext)container.GetService(typeof(WorldDbContext));
         }
 
         private const string fileName = "oreHelperData.txt";
@@ -310,6 +317,24 @@ namespace cmangos_designer.Helpers
             return output.Length > 2;
         }
 
+        public static bool FloatComparison(decimal x, decimal y, decimal precision)
+        {
+            return Math.Abs(x - y) < precision;
+        }
+
+        public static bool FloatComparison(decimal x, string y, decimal precision)
+        {
+            return Math.Abs(x - decimal.Parse(y)) < precision;
+        }
+
+        private static decimal NormalizeOrientation(decimal originalOri)
+        {
+            if (originalOri > (decimal)Math.PI) // later expansions used 0-2PI interval, whereas earlier used -PI-PI interval
+                return (originalOri - 2 * (decimal)Math.PI);
+
+            return originalOri;
+        }
+
         private async Task<string?> ProcessData(string entriesText, string indexText, bool errors)
         {
             string output = "";
@@ -336,6 +361,8 @@ namespace cmangos_designer.Helpers
                 }
                 mapId.Add(map);
             }
+
+            decimal precision = 0.0002M; // warning - some zones shifted by 0.2 in some cases between later expansions
 
             string text = System.IO.File.ReadAllText(textBoxChosenFile.Text);
             lines = text.Split(new char[] { '\n' });
@@ -371,7 +398,9 @@ namespace cmangos_designer.Helpers
                         continue;
 
                     if (cleanedLine[0] == '-' && cleanedLine[1] == '-' && cleanedLine[2] == ' ')
-                        continue;
+                    {
+                        cleanedLine = cleanedLine.Substring(3);
+                    }
 
                     if (cleanedLine[0] != '@')
                         continue;
@@ -390,11 +419,26 @@ namespace cmangos_designer.Helpers
                     gameObject.PositionX = split[6];
                     gameObject.PositionY = split[7];
                     gameObject.PositionZ = split[8];
+
                     gameObject.Orientation = split[9];
                     gameObject.Rotation0 = split[10];
                     gameObject.Rotation1 = split[11];
                     gameObject.Rotation2 = split[12];
                     gameObject.Rotation3 = split[13];
+
+                    var result = await _dbContext.GameObjects.AnyAsync(p => (p.id == 0 || p.id == gameObject.Id) && p.map == gameObject.Map
+                        && FloatComparison(p.position_x, gameObject.PositionX, precision)
+                        && FloatComparison(p.position_y, gameObject.PositionX, precision)
+                        && FloatComparison(p.position_z, gameObject.PositionZ, precision)
+                        && FloatComparison(NormalizeOrientation(p.orientation), NormalizeOrientation(decimal.Parse(gameObject.Orientation)), precision)
+                        && FloatComparison(p.rotation0, gameObject.Rotation0, precision)
+                        && FloatComparison(p.rotation1, gameObject.Rotation1, precision)
+                        && (FloatComparison(p.rotation2, gameObject.Rotation2, precision) || FloatComparison(p.rotation2, -decimal.Parse(gameObject.Rotation2), precision))
+                        && (FloatComparison(p.rotation3, gameObject.Rotation3, precision) || FloatComparison(p.rotation3, -decimal.Parse(gameObject.Rotation3), precision)));
+
+                    if (result == true)
+                        continue;
+
                     gameObject.SpawnTimeSecsMin = 600;
                     gameObject.SpawnTimeSecsMax = 600;
                     gameObjects.Add(gameObject);
