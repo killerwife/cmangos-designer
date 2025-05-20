@@ -48,6 +48,7 @@ namespace cmangos_designer
 
             var serviceCollection = new ServiceCollection();
 
+            serviceCollection.AddSingleton<IConfiguration>(m_configurationRoot);
             serviceCollection.AddSingleton<DatabaseConfig>(m_configurationRoot.GetSection("DbConfig:TbcConfig").Get<Config.DatabaseConfig>());
             serviceCollection.AddDbContext<WorldDbContext>();
 

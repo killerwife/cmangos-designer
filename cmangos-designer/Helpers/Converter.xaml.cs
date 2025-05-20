@@ -574,7 +574,7 @@ namespace cmangos_designer.Helpers
                     gameObject.Id = int.Parse(split[1]);
                     if (gameObject.Id != entry)
                         continue;
-                    gameObject.Map = int.Parse(split[2]);
+                    gameObject.Map = uint.Parse(split[2]);
                     gameObject.SpawnMask = int.Parse(split[5]);
                     gameObject.PositionX = split[6];
                     gameObject.PositionY = split[7];

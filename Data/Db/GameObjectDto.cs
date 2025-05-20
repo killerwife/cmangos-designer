@@ -38,7 +38,7 @@ namespace Data.Db
     {
         public string Guid { get; set; }
         public int Id { get; set; }
-        public int Map { get; set; }
+        public uint Map { get; set; }
         public int SpawnMask { get; set; }
         public int PhaseMask { get; set; }
         public string PositionX { get; set; } = string.Empty;
