@@ -210,6 +210,9 @@ namespace cmangos_designer.Helpers
 
         private async Task ReadFileIfExistsAndUpdateIndices(string path)
         {
+            if (string.IsNullOrEmpty(path))
+                return;
+
             string[] text = System.IO.File.ReadAllLines(path);
 
             await ChangeIndexIfHasData(buttonCopyToClipboard0, textBoxEntries0.Text, textBoxNumber0, text);
