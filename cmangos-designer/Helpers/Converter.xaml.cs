@@ -22,6 +22,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using Windows.UI.Popups;
 using WinRT.Interop;
+using Data.Model.World;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -671,36 +672,76 @@ namespace cmangos_designer.Helpers
 
             string output = "";
 
-            List<(float position_x, float position_y, float position_z)> gos = new();
+            List<(int id, int map, double position_x, double position_y, double position_z, double orientation, double rotation0, double rotation1, double rotation2, double rotation3)> gos = new();
 
             int i = 0;
+            int varValue = -1;
+            double precision = 0.005d; // warning - some zones shifted by 0.2 in some cases between later expansions
             foreach (var line in lines)
             {
+                if (line.Contains("SET @GGUID="))
+                {
+                    varValue = int.Parse(line.Replace(";", "").Substring(11));
+                    continue;
+                }
+
                 var lineSplit = line.Split(',');
                 if (lineSplit.Count() < 10)
                     continue;
 
-                if (deduplicatorIds.Length > 0)
-                {
-                    if (deduplicatorIds.Contains(lineSplit[0].Substring(1)))
-                        continue;
-                }
-
-                float x = float.Parse(lineSplit[4], CultureInfo.InvariantCulture);
-                float y = float.Parse(lineSplit[5], CultureInfo.InvariantCulture);
-                float z = float.Parse(lineSplit[6], CultureInfo.InvariantCulture);
-
-                if (gos.Any(p => p.position_x == x && p.position_y == y && p.position_z == z))
+                if (lineSplit[0].Contains("INSERT INTO"))
                     continue;
 
-                gos.Add((x,y,z));
+                if (deduplicatorIds.Length > 0)
+                {
+                    if (varValue != -1)
+                    {
+                        var numOnly = int.Parse(lineSplit[0].Substring(8));
+                        if (deduplicatorIds.Contains((numOnly + varValue).ToString()))
+                            continue;
+                    }
+                    else
+                    {
+                        if (deduplicatorIds.Contains(lineSplit[0].Substring(1)))
+                            continue;
+                    }
+                }
 
-                lineSplit[1] = "0";
-                // lineSplit[0] = "(@GGUID+" + i;
+                var entry = int.Parse(lineSplit[1], CultureInfo.InvariantCulture);
+                var mapId = int.Parse(lineSplit[2], CultureInfo.InvariantCulture);
+                var posXDec = double.Parse(lineSplit[4], CultureInfo.InvariantCulture);
+                var posYDec = double.Parse(lineSplit[5], CultureInfo.InvariantCulture);
+                var posZDec = double.Parse(lineSplit[6], CultureInfo.InvariantCulture);
+                var parsedOri = double.Parse(lineSplit[7], CultureInfo.InvariantCulture);
+                var oriDec = PositionHelpers.DeNormalizeOrientation(parsedOri);
+                var normalOri = PositionHelpers.NormalizeOrientation(parsedOri);
+                var rot0Dec = double.Parse(lineSplit[8], CultureInfo.InvariantCulture);
+                var rot1Dec = double.Parse(lineSplit[9], CultureInfo.InvariantCulture);
+                var rot2Dec = double.Parse(lineSplit[10], CultureInfo.InvariantCulture);
+                var rot3Dec = double.Parse(lineSplit[11], CultureInfo.InvariantCulture);
+                var result = gos.Any(p => (p.id == 0 || p.id == entry) && p.map == mapId
+                && Math.Abs((double)p.position_x - posXDec) < precision
+                    && Math.Abs((double)p.position_y - posYDec) < precision
+                    && Math.Abs((double)p.position_z - posZDec) < precision
+                    && (Math.Abs((double)p.orientation - oriDec) < precision || Math.Abs((double)p.orientation - normalOri) < precision)
+                    && Math.Abs((double)p.rotation0 - rot0Dec) < precision
+                    && Math.Abs((double)p.rotation1 - rot1Dec) < precision
+                    && (Math.Abs((double)p.rotation2 - rot2Dec) < precision || Math.Abs((double)p.rotation2 - (-rot2Dec)) < precision)
+                    && (Math.Abs((double)p.rotation3 - rot3Dec) < precision || Math.Abs((double)p.rotation3 - (-rot3Dec)) < precision)
+                    );
+                if (result)
+                    continue;
+
+                gos.Add((entry, mapId, posXDec, posYDec, posZDec, parsedOri, rot0Dec, rot1Dec, rot2Dec, rot3Dec));
+
+                // lineSplit[1] = "0";
+                lineSplit[0] = "(@GGUID+" + i;
                 ++i;
 
                 output += string.Join(',', lineSplit) + '\n';
             }
+
+            output = output.Substring(0, output.Length - 1); // removes last newline
 
             DataPackage dataPackage = new DataPackage();
             dataPackage.RequestedOperation = DataPackageOperation.Copy;

@@ -467,32 +467,6 @@ namespace cmangos_designer.Helpers
             return output.Length > 2;
         }
 
-        public static bool FloatComparison(double x, double y, double precision)
-        {
-            return Math.Abs(x - y) < precision;
-        }
-
-        public static bool FloatComparison(decimal x, string y, decimal precision)
-        {
-            return Math.Abs(x - decimal.Parse(y)) < precision;
-        }
-
-        private static double NormalizeOrientation(double originalOri)
-        {
-            if (originalOri > Math.PI) // later expansions used 0-2PI interval, whereas earlier used -PI-PI interval
-                return (originalOri - 2 * Math.PI);
-
-            return originalOri;
-        }
-
-        private static double DeNormalizeOrientation(double originalOri)
-        {
-            if (originalOri < 0) // later expansions used 0-2PI interval, whereas earlier used -PI-PI interval
-                return (originalOri + 2 * Math.PI);
-
-            return originalOri;
-        }
-
         private async Task<string?> ProcessData(string entriesText, string indexText, bool errors)
         {
             string output = "";
@@ -590,8 +564,8 @@ namespace cmangos_designer.Helpers
                     var posYDec = double.Parse(gameObject.PositionY, CultureInfo.InvariantCulture);
                     var posZDec = double.Parse(gameObject.PositionZ, CultureInfo.InvariantCulture);
                     var parsedOri = double.Parse(gameObject.Orientation, CultureInfo.InvariantCulture);
-                    var oriDec = DeNormalizeOrientation(parsedOri);
-                    var normalOri = NormalizeOrientation(parsedOri);
+                    var oriDec = PositionHelpers.DeNormalizeOrientation(parsedOri);
+                    var normalOri = PositionHelpers.NormalizeOrientation(parsedOri);
                     var rot0Dec = double.Parse(gameObject.Rotation0, CultureInfo.InvariantCulture);
                     var rot1Dec = double.Parse(gameObject.Rotation1, CultureInfo.InvariantCulture);
                     var rot2Dec = double.Parse(gameObject.Rotation2, CultureInfo.InvariantCulture);
