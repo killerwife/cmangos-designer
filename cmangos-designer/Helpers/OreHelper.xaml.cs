@@ -43,10 +43,12 @@ namespace cmangos_designer.Helpers
 
         private WorldDbContext _dbContext;
 
+        private List<TextBox> _textEntries = new();
+        private List<TextBox> _textNumbers = new();
+
         public OreHelper()
         {
             this.InitializeComponent();
-            readFile();
 
             var container = ((App)App.Current).Container;
             _dbContext = (WorldDbContext)container.GetService(typeof(WorldDbContext));
@@ -58,6 +60,66 @@ namespace cmangos_designer.Helpers
             ProfilesBinding.Add("3");
             ProfilesBinding.Add("4");
             ProfilesBinding.Add("5");
+
+            _textEntries.Add(textBoxEntries0);
+            _textEntries.Add(textBoxEntries1);
+            _textEntries.Add(textBoxEntries2);
+            _textEntries.Add(textBoxEntries3);
+            _textEntries.Add(textBoxEntries4);
+            _textEntries.Add(textBoxEntries5);
+            _textEntries.Add(textBoxEntries6);
+            _textEntries.Add(textBoxEntries7);
+            _textEntries.Add(textBoxEntries8);
+            _textEntries.Add(textBoxEntries9);
+            _textEntries.Add(textBoxEntries10);
+            _textEntries.Add(textBoxEntries11);
+            _textEntries.Add(textBoxEntries12);
+            _textEntries.Add(textBoxEntries13);
+            _textEntries.Add(textBoxEntries14);
+            _textEntries.Add(textBoxEntries15);
+            _textEntries.Add(textBoxEntries16);
+            _textEntries.Add(textBoxEntries17);
+            _textEntries.Add(textBoxEntries18);
+            _textEntries.Add(textBoxEntries19);
+            _textEntries.Add(textBoxEntries20);
+            _textEntries.Add(textBoxEntries21);
+            _textEntries.Add(textBoxEntries22);
+            _textEntries.Add(textBoxEntries23);
+            _textEntries.Add(textBoxEntries24);
+            _textEntries.Add(textBoxEntries25);
+            _textEntries.Add(textBoxEntries26);
+            _textEntries.Add(textBoxEntries27);
+
+            _textNumbers.Add(textBoxNumber0);
+            _textNumbers.Add(textBoxNumber1);
+            _textNumbers.Add(textBoxNumber2);
+            _textNumbers.Add(textBoxNumber3);
+            _textNumbers.Add(textBoxNumber4);
+            _textNumbers.Add(textBoxNumber5);
+            _textNumbers.Add(textBoxNumber6);
+            _textNumbers.Add(textBoxNumber7);
+            _textNumbers.Add(textBoxNumber8);
+            _textNumbers.Add(textBoxNumber9);
+            _textNumbers.Add(textBoxNumber10);
+            _textNumbers.Add(textBoxNumber11);
+            _textNumbers.Add(textBoxNumber12);
+            _textNumbers.Add(textBoxNumber13);
+            _textNumbers.Add(textBoxNumber14);
+            _textNumbers.Add(textBoxNumber15);
+            _textNumbers.Add(textBoxNumber16);
+            _textNumbers.Add(textBoxNumber17);
+            _textNumbers.Add(textBoxNumber18);
+            _textNumbers.Add(textBoxNumber19);
+            _textNumbers.Add(textBoxNumber20);
+            _textNumbers.Add(textBoxNumber21);
+            _textNumbers.Add(textBoxNumber22);
+            _textNumbers.Add(textBoxNumber23);
+            _textNumbers.Add(textBoxNumber24);
+            _textNumbers.Add(textBoxNumber25);
+            _textNumbers.Add(textBoxNumber26);
+            _textNumbers.Add(textBoxNumber27);
+
+            readFile();
         }
 
         private const string fileName = "oreHelperData";
@@ -100,7 +162,13 @@ namespace cmangos_designer.Helpers
         private void readFile()
         {
             if (!File.Exists(fileName + SelectedProfile + ".txt"))
+            {
+                foreach (var box in _textEntries)
+                    box.Text = "";
+                foreach (var box in _textNumbers)
+                    box.Text = "";
                 return;
+            }
 
             string[] text = System.IO.File.ReadAllLines(fileName + SelectedProfile + ".txt");
             textBoxMapId.Text = CleanLine(text[0]);
