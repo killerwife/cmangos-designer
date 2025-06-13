@@ -38,6 +38,9 @@ namespace cmangos_designer.Helpers
     /// </summary>
     public sealed partial class OreHelper : Page
     {
+        private List<string> ProfilesBinding { get; set; } = new List<string>();
+        private string SelectedProfile { get; set; }
+
         private WorldDbContext _dbContext;
 
         public OreHelper()
@@ -47,9 +50,17 @@ namespace cmangos_designer.Helpers
 
             var container = ((App)App.Current).Container;
             _dbContext = (WorldDbContext)container.GetService(typeof(WorldDbContext));
+
+            SelectedProfile = "1"; // TODO: Save
+
+            ProfilesBinding.Add("1");
+            ProfilesBinding.Add("2");
+            ProfilesBinding.Add("3");
+            ProfilesBinding.Add("4");
+            ProfilesBinding.Add("5");
         }
 
-        private const string fileName = "oreHelperData.txt";
+        private const string fileName = "oreHelperData";
 
         private void saveFile()
         {
@@ -83,15 +94,15 @@ namespace cmangos_designer.Helpers
             fileOutput += textBoxEntries25.Text + ";" + textBoxNumber25.Text + "\n";
             fileOutput += textBoxEntries26.Text + ";" + textBoxNumber26.Text + "\n";
             fileOutput += textBoxEntries27.Text + ";" + textBoxNumber27.Text + "\n";
-            File.WriteAllText(fileName, fileOutput);
+            File.WriteAllText(fileName + SelectedProfile + ".txt", fileOutput);
         }
 
         private void readFile()
         {
-            if (!File.Exists(fileName))
+            if (!File.Exists(fileName + SelectedProfile + ".txt"))
                 return;
 
-            string[] text = System.IO.File.ReadAllLines(fileName);
+            string[] text = System.IO.File.ReadAllLines(fileName + SelectedProfile + ".txt");
             textBoxMapId.Text = CleanLine(text[0]);
             checkArrayAndSet(text, 0, textBoxEntries0, textBoxNumber0);
             checkArrayAndSet(text, 1, textBoxEntries1, textBoxNumber1);
@@ -614,6 +625,12 @@ namespace cmangos_designer.Helpers
             }
 
             return output;
+        }
+
+        private void ProfileComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedProfile = (string)e.AddedItems[0];
+            readFile();
         }
     }
 }
