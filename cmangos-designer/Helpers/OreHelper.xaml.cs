@@ -573,7 +573,7 @@ namespace cmangos_designer.Helpers
                 mapId.Add(map);
             }
 
-            double precision = 0.000002d; // warning - some zones shifted by 0.2 in some cases between later expansions
+            double precision = 0.2d; // warning - some zones shifted by 0.2 in some cases between later expansions
 
             var allGos = _dbContext.GameObjects.Where(p => mapId.Contains(p.map)).ToList();
 
@@ -650,7 +650,7 @@ namespace cmangos_designer.Helpers
                     var rot2Dec = double.Parse(gameObject.Rotation2, CultureInfo.InvariantCulture);
                     var rot3Dec = double.Parse(gameObject.Rotation3, CultureInfo.InvariantCulture);
 
-                    var result = allGos.Any(p => (p.id == 0 || p.id == gameObject.Id) && p.map == gameObject.Map
+                    var result = allGos.Any(p => (p.id == 0 || p.id == gameObject.Id)
                         && Math.Abs((double)p.position_x - posXDec) < precision
                         && Math.Abs((double)p.position_y - posYDec) < precision
                         && Math.Abs((double)p.position_z - posZDec) < precision

@@ -800,6 +800,8 @@ namespace cmangos_designer.Helpers
                 output += string.Join(',', lineSplit) + '\n';
             }
 
+            output = output.Substring(0, output.Length - 1); // removes last newline
+
             DataPackage dataPackage = new DataPackage();
             dataPackage.RequestedOperation = DataPackageOperation.Copy;
             dataPackage.SetText(output);
