@@ -90,5 +90,8 @@
         <TextBox x:Name="textBoxRenumber" Grid.Column="1" Grid.Row="13" Grid.RowSpan="4" PlaceholderText="Input vmangos sql row here" AcceptsReturn="True" TextWrapping="Wrap" Margin="5"/>
         <Button x:Name="buttonRenumber" Grid.Column="1" Grid.Row="17" Grid.RowSpan="2" Click="buttonRenumber_Click">Convert to clipboard</Button>
 
+
+        <Button x:Name="buttonMigrateCLS" Grid.Column="1" Grid.Row="18" Grid.RowSpan="2" Click="buttonMigrateCLS_Click">Migrate CLS</Button>
+
     </Grid>
 </Page>

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection.Emit;
+using Data.Db.Model;
 
 namespace Repository
 {
@@ -36,6 +37,7 @@ namespace Repository
         {
             base.OnModelCreating(builder);
             builder.Entity<CreatureTemplate>(x => x.ToTable("creature_template"));
+            builder.Entity<CreatureTemplateClassLevelStats>(x => x.ToTable("creature_template_classlevelstats"));
             builder.Entity<Creature>(x => x.ToTable("creature"));
             builder.Entity<CreatureZone>(x => x.ToTable("creature_zone"));
             builder.Entity<CreatureMovement>(x => x.ToTable("creature_movement"));
@@ -53,6 +55,7 @@ namespace Repository
             builder.Entity<EventAIScript>().ToTable("creature_ai_scripts");
         }
         public DbSet<CreatureTemplate> CreatureTemplates { get; set; }
+        public DbSet<CreatureTemplateClassLevelStats> CreatureTemplateClassLevelStatss { get; set; }
         public DbSet<Creature> Creatures { get; set; }
         public DbSet<CreatureZone> CreatureZones { get; set; }
         public DbSet<CreatureMovement> CreatureMovements { get; set; }

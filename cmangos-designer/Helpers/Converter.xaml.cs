@@ -1,4 +1,5 @@
 ﻿using Data.Db;
+using Data.Model.World;
 using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
@@ -8,6 +9,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,11 +20,11 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Pickers;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using WinRT.Interop;
-using Data.Model.World;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -801,6 +803,50 @@ namespace cmangos_designer.Helpers
             }
 
             output = output.Substring(0, output.Length - 1); // removes last newline
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(output);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private void buttonMigrateCLS_Click(object sender, RoutedEventArgs e)
+        {
+            var container = ((App)App.Current).Container;
+            var mysql = (WorldDbContext)container.GetService(typeof(WorldDbContext));
+
+            string output = "";
+
+            var creatureTemplates = mysql.CreatureTemplates.Join(mysql.CreatureTemplateClassLevelStatss, p => new { UnitClass = p.UnitClass, Level = p.MinLevel }, q => new
+            {
+                UnitClass = q.Class,
+                Level = q.Level,
+            }, (p, q) => new { p, q }).Select(s => new { s.p.Entry, s.p.DamageMultiplier, s.p.DamageVariance, s.p.MeleeBaseAttackTime, s.p.Expansion, s.q.BaseMeleeAttackPower, s.q.BaseDamageExp0, s.q.BaseDamageExp1 }).ToList();
+
+            foreach (var creatureTemplate in creatureTemplates)
+            {
+                float baseDmgCls = creatureTemplate.Expansion switch
+                {
+                    0 => creatureTemplate.BaseDamageExp0,
+                    1 => creatureTemplate.BaseDamageExp0,
+                    _ => 0
+                };
+
+                float minDamage = ((baseDmgCls * creatureTemplate.DamageVariance) + (creatureTemplate.BaseMeleeAttackPower / 14.0f)) * (creatureTemplate.MeleeBaseAttackTime / 1000.0f) * creatureTemplate.DamageMultiplier;
+                float maxDamage = ((baseDmgCls * creatureTemplate.DamageVariance * 1.5f) + (creatureTemplate.BaseMeleeAttackPower / 14.0f)) * (creatureTemplate.MeleeBaseAttackTime / 1000.0f) * creatureTemplate.DamageMultiplier;
+
+                float attackPower = creatureTemplate.BaseMeleeAttackPower;
+
+                float baseDmg = ((baseDmgCls * 1));
+                float attackPowerBoostedDmg = (baseDmg + (attackPower / 14.0f)) * 1;
+
+                float multi = (maxDamage + minDamage) / (attackPowerBoostedDmg * 2);
+                float variance = (maxDamage - minDamage) / multi / baseDmg;
+                if (creatureTemplate.DamageVariance == 1)
+                    variance = 0.4f;
+
+                output += "UPDATE creature_template SET DamageMultiplier=" + multi + ", DamageVariance=" + variance + " WHERE Entry=" + creatureTemplate.Entry + ";\n";
+            }
 
             DataPackage dataPackage = new DataPackage();
             dataPackage.RequestedOperation = DataPackageOperation.Copy;
